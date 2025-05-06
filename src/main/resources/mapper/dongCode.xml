@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.domain.dongcode.dao.DongCodeDAO">
+    <!--    시도 목록 가져오기(나중에는 캐싱하는게 나을듯)-->
+    <resultMap id="distinctSidoMap" type="DongCodeDTO">
+        <result column="sido_name" property="sidoName"/>
+    </resultMap>
+
+
+    <select id="getDistinctSido" resultMap="distinctSidoMap">
+        SELECT DISTINCT sido_name FROM dongcodes;
+    </select>
+
+    <!--    시도 이름 기반으로 동 목록 가져오기-->
+    <resultMap id="distinctGugunMap" type="DongCodeDTO">
+        <result column="gugun_name" property="gugunName"/>
+    </resultMap>
+
+    <select id="getDistinctGugun" resultMap="distinctGugunMap">
+        SELECT DISTINCT gugun_name FROM dongcodes
+        WHERE sido_name=#{sidoName}
+        AND gugun_name IS NOT NULL
+        ORDER BY gugun_name
+    </select>
+
+    <!--    시도, 구군으로 DongCodeDTO 목록 가져오기-->
+    <resultMap id="dongCodeMap" type="DongCodeDTO">
+        <result column="dong_code" property="dongCode"/>
+        <result column="sido_name" property="sidoName"/>
+        <result column="gugun_name" property="gugunName"/>
+        <result column="dong_name" property="dongName"/>
+    </resultMap>
+
+    <select id="getDongCode" resultMap="dongCodeMap">
+        SELECT * FROM dongcodes
+        WHERE sido_name=#{sidoName} AND gugun_name=#{gugunName}
+        AND dong_name IS NOT NULL
+        ORDER BY dong_name
+    </select>
+</mapper>
