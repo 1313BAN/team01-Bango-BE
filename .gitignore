@@ -35,35 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-src/main/resources/application-*.yml
-*.log
-
-# Maven target directory
-/target/
-
-# IntelliJ IDEA-specific files
-/.idea/
-/*.iml
-
-# Build output
-/out/
-
-# Logs
-*.log
-
-# OS-specific
-.DS_Store
-Thumbs.db
-
-# Dependency directories (if used)
-/node_modules/
-
-# Environment files
-.env
-
-# Ignore IntelliJ workspace files
-*.iws
-
-# Local configuration
-*.ipr

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: bango
+
+  datasource:
+    url: jdbc:h2:mem:dev
+
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:/data.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: create  # ?? update
+    defer-datasource-initialization: true
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+      settings:
+        web-allow-others: true
