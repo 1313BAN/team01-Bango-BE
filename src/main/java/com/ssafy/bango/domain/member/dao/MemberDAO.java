@@ -1,9 +1,9 @@
 package com.ssafy.bango.domain.member.dao;
 
-import com.ssafy.bango.domain.member.dto.MemberDTO;
+import com.ssafy.bango.domain.member.dto.Member;
 
 public interface MemberDAO {
-    MemberDTO findById(String id);
-    int insertMember(MemberDTO member);
-    int updateMember(MemberDTO member);
+    Member findById(String id);
+    int insertMember(Member member);
+    int updateMember(Member member);
 }

@@ -1,7 +1,9 @@
 package com.ssafy.bango.domain.dongcode.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,15 @@ import lombok.NoArgsConstructor;
 @Entity
 public class DongCode {
     @Id
-    public String dongCode;
-    public String sidoName;
-    public String gugunName;
-    public String dongName;
+    @Column(length = 10)
+    private String dongcode;
+
+    @Column(length = 30)
+    private String sidoName;
+
+    @Column(length = 30)
+    private String gugunName;
+
+    @Column(length = 30)
+    private String dongName;
 }

@@ -1,0 +1,33 @@
+package com.ssafy.bango.domain.rentalhouse.dto;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RentalHouseStyle {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer styleId;
+
+  @ManyToOne
+  @JoinColumn(name = "house_id", nullable = false)
+  private RentalHouse rentalHouse;
+
+  private Integer baseDeposit;
+
+  private Integer baseMonthlyRent;
+
+  private Integer baseConversionDeposit;
+
+  @Column(length = 45)
+  private String styleName;
+
+  private Float supplyPrivateArea;
+
+  private Float supplyPublicArea;
+}

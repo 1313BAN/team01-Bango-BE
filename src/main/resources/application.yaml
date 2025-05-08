@@ -3,16 +3,18 @@ spring:
     name: bango
 
   datasource:
-    url: jdbc:h2:mem:dev
+    url: jdbc:mysql://localhost:3306/ssafyhome_db
+    password: ssafy
+    username: ssafy
 
-#  sql:
+  #  sql:
 #    init:
 #      mode: always
 #      schema-locations: classpath:/data.sql
 
   jpa:
     hibernate:
-      ddl-auto: create  # ?? update
+      ddl-auto: update  # ?? update
     defer-datasource-initialization: true
 
   h2:
