@@ -21,3 +21,7 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+
+kakao:
+  api:
+    key: 08cda483cb4edb0166adc0d8710a1a75
