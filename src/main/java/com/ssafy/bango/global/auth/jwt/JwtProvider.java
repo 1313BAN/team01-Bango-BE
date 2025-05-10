@@ -5,6 +5,7 @@ import com.ssafy.bango.global.auth.redis.RefreshTokenRepository;
 import com.ssafy.bango.global.exception.CustomException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,15 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String JWT_SECRET;
     private final RefreshTokenRepository tokenRepository;
+    private SecretKey signingKey;
+
+    @PostConstruct
+    //
+    private void initKey() {
+        // JWT_SECRET은 Base64로 인코딩됨, 실제 암호화에 사용되는 키는 디코딩되어야 함.
+        byte[] decodedKey = Base64.getDecoder().decode(JWT_SECRET);
+        this.signingKey = Keys.hmacShaKeyFor(decodedKey);
+    }
 
     // Access Token, Refresh Token을 발급하는 메서드
     public TokenDTO issueToken(Authentication authentication) {
@@ -40,7 +50,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims)
-                .signWith(getSignKey())
+                .signWith(signingKey)
                 .compact();
     }
 
@@ -50,7 +60,7 @@ public class JwtProvider {
         String refreshToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims)
-                .signWith(getSignKey())
+                .signWith(signingKey)
                 .compact();
 
         tokenRepository.save(
@@ -86,12 +96,6 @@ public class JwtProvider {
         return claims;
     }
 
-    // 암호화에 필요한 키는 디코딩된 키어야 함.
-    private SecretKey getSignKey() {
-        byte[] decodedKey = Base64.getDecoder().decode(JWT_SECRET);
-        return Keys.hmacShaKeyFor(decodedKey);
-    }
-
     public boolean validateAccessToken(String accessToken) {
         try {
             final Claims claims = getJwtBody(accessToken);
@@ -113,12 +117,13 @@ public class JwtProvider {
 
     public Long validateRefreshToken(String refreshToken) {
         // Redis에 해당 토큰이 존재하지 않을 경우 -> 만료된 토큰
+        // redis에 있는 리프레시 토큰과도 동일해야 함.
         Long memberId = getMemberIdFromJwt(refreshToken);
-        if (tokenRepository.existsById(memberId)) {
-            return memberId;
-        } else {
-            throw new CustomException(EXPIRED_JWT_TOKEN);
-        }
+
+        return tokenRepository.findById(memberId)
+                .filter(rt -> rt.getRefreshToken().equals(refreshToken))
+                .map(RefreshToken::getMemberId)
+                .orElseThrow(() -> new CustomException(EXPIRED_JWT_TOKEN));
     }
 
     public Long getMemberIdFromJwt(String token) {
@@ -129,7 +134,7 @@ public class JwtProvider {
     private Claims getJwtBody(final String token) {
         // 만료된 토큰에 대해 parseClaimsJws()을 수행 시, ExpiredJwtException 발생
         return Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
