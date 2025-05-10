@@ -1,7 +1,6 @@
 package com.ssafy.bango.domain.member.dto;
 
 import com.ssafy.bango.domain.noticelikes.dto.NoticeLike;
-import com.ssafy.bango.global.auth.dto.RefreshToken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,9 +34,6 @@ public class Member {
 
     @Column(nullable = false, length = 45)
     private String role;
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NoticeLike> likes;
