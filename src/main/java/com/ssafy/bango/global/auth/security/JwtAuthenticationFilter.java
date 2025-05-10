@@ -15,14 +15,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.ssafy.bango.global.auth.security.AuthWhiteList.AUTH_WHITELIST_DEFALUT;
+import static com.ssafy.bango.global.auth.security.AuthWhiteList.AUTH_WHITELIST_DEFAULT;
 import static com.ssafy.bango.global.auth.security.AuthWhiteList.AUTH_WHITELIST_WILDCARD;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
-
 
     @Override
     protected void doFilterInternal(
@@ -33,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         /*
          * 인증/인가 필요없는 uri 처리
          */
-        if (AUTH_WHITELIST_DEFALUT.stream()
+        if (AUTH_WHITELIST_DEFAULT.stream()
                 .anyMatch(whiteUrl -> request.getRequestURI().equals(whiteUrl))) {
             filterChain.doFilter(request, response);
             return;
