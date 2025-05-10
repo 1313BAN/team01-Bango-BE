@@ -45,24 +45,13 @@ public class JwtProvider {
     }
 
     private String generateAccessToken(Authentication authentication) {
-        Claims claims = makeClaims(authentication, ACCESS_TOKEN_EXPIRATION_TIME);
 
-        return Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setClaims(claims)
-                .signWith(signingKey)
-                .compact();
+        return generateJwt(authentication, ACCESS_TOKEN_EXPIRATION_TIME);
     }
 
     private String generateRefreshToken(Authentication authentication) {
-        Claims claims = makeClaims(authentication, REFRESH_TOKEN_EXPIRATION_TIME);
 
-        String refreshToken = Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setClaims(claims)
-                .signWith(signingKey)
-                .compact();
-
+        String refreshToken = generateJwt(authentication, REFRESH_TOKEN_EXPIRATION_TIME);
         tokenRepository.save(
                 RefreshToken.builder()
                         .memberId(Long.parseLong(authentication.getPrincipal().toString()))
@@ -82,8 +71,8 @@ public class JwtProvider {
         }
     }
 
-    // expirationTime 만큼의 유효기간, memberId를 가진 Claims 생성하는 메서드
-    private Claims makeClaims(Authentication authentication, Long expirationTime) {
+    // expirationTime 만큼의 유효기간, memberId를 가진 Claims 생성하고, jwt 생성하는 메서드
+    private String generateJwt(Authentication authentication, Long expirationTime) {
         final Date now = new Date();
         final Date expiry = new Date(now.getTime() + expirationTime);
 
@@ -93,7 +82,11 @@ public class JwtProvider {
 
         claims.put("memberId", authentication.getPrincipal());
 
-        return claims;
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setClaims(claims)
+                .signWith(signingKey)
+                .compact();
     }
 
     public boolean validateAccessToken(String accessToken) {
@@ -123,7 +116,7 @@ public class JwtProvider {
         return tokenRepository.findById(memberId)
                 .filter(rt -> rt.getRefreshToken().equals(refreshToken))
                 .map(RefreshToken::getMemberId)
-                .orElseThrow(() -> new CustomException(EXPIRED_JWT_TOKEN));
+                .orElseThrow(() -> new CustomException(INVALID_JWT_TOKEN));
     }
 
     public Long getMemberIdFromJwt(String token) {
