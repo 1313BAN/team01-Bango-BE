@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.auth;
+package com.ssafy.bango.global.auth.jwt;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

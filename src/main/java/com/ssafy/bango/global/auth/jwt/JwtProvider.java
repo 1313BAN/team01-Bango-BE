@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.auth;
+package com.ssafy.bango.global.auth.jwt;
 
 import com.ssafy.bango.global.auth.redis.RefreshToken;
 import com.ssafy.bango.global.auth.redis.RefreshTokenRepository;
@@ -65,7 +65,7 @@ public class JwtProvider {
     }
 
     public void deleteRefreshToken(Long memberId) {
-        if (!tokenRepository.existsById(memberId)) {
+        if (tokenRepository.existsById(memberId)) {
             tokenRepository.deleteById(memberId);
         } else {
             throw new CustomException(NOT_FOUND_REFRESH_TOKEN_ERROR);
@@ -113,7 +113,7 @@ public class JwtProvider {
 
     public Long validateRefreshToken(String refreshToken) {
         // Redis에 해당 토큰이 존재하지 않을 경우 -> 만료된 토큰
-        Long memberId = getUserIdFromJwt(refreshToken);
+        Long memberId = getMemberIdFromJwt(refreshToken);
         if (tokenRepository.existsById(memberId)) {
             return memberId;
         } else {
@@ -121,7 +121,7 @@ public class JwtProvider {
         }
     }
 
-    public Long getUserIdFromJwt(String token) {
+    public Long getMemberIdFromJwt(String token) {
         Claims claims = getJwtBody(token);
         return Long.parseLong(claims.get("memberId").toString());
     }
