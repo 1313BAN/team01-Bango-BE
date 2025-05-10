@@ -23,3 +23,6 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+
+jwt:
+  secret: wKdXfChR0aAd3nOVs9R1Fg2W1MZTtGkhNQPi9z+RMxE=
