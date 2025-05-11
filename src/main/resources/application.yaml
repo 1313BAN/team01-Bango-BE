@@ -34,3 +34,15 @@ spring:
 
 jwt:
   secret: ${JWT_SECRET_KEY}
+
+oauth:
+  kakao:
+    client-id: ${kakao-rest-api-key}
+    authorization-grant-type: "authorization_code"
+    redirect-uri: "http://localhost:5173/auth/kakao/redirect"
+
+  google:
+    client-id: ${google-rest-api-key}
+    client-secret: ${google-oauth-client-secret}
+    authorization-grant-type: "authorization_code"
+    redirect-uri: "http://localhost:5173/auth/google/redirect"

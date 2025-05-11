@@ -19,7 +19,7 @@ public enum ErrorType {
     INVALID_HTTP_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "요청 형식이 허용된 형식과 다릅니다."),
     INVALID_HTTP_METHOD_ERROR(HttpStatus.BAD_REQUEST, "지원되지 않는 HTTP method 요청입니다."),
     INVALID_TOKEN_HEADER_ERROR(HttpStatus.BAD_REQUEST, "토큰 헤더값의 형식이 잘못되었습니다."),
-    INVALID_CODE_HEADER_ERROR(HttpStatus.BAD_REQUEST, "code 헤더값의 형식이 잘못되었습니다."),
+    INVALID_CODE_ERROR(HttpStatus.BAD_REQUEST, "code 값의 형식이 잘못되었습니다."),
 
     // 인증 관련 오류
     EMPTY_PRINCIPLE_ERROR(HttpStatus.BAD_REQUEST, "Principle 객체가 없습니다. (null)"),
@@ -49,7 +49,8 @@ public enum ErrorType {
     /**
      * 409 CONFLICT
      */
-    NICKNAME_DUP_ERROR(HttpStatus.CONFLICT, "중복된 회원 닉네임입니다.");
+    NICKNAME_DUP_ERROR(HttpStatus.CONFLICT, "중복된 회원 닉네임입니다."),
+    MEMBER_ALREADY_EXIST_ERROR(HttpStatus.CONFLICT, "이미 존재하는 사용자입니다.");
 
 
     private final HttpStatus httpStatus;

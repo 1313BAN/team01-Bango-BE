@@ -4,36 +4,43 @@ import com.ssafy.bango.domain.noticelikes.dto.NoticeLike;
 import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer memberId;
+    private Long memberId;
 
-    @Column(nullable = false, length = 45)
+    @Column(length = 45)
     private String name;
 
-    private Integer age;
-
-    @Column(nullable = false, length = 45, unique = true)
+    @Column(length = 45, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SocialPlatform platformType;
+    private SocialPlatform socialPlatform;
 
     @Column(nullable = false, length = 100)
     private String socialId;
 
-    @Column(nullable = false, length = 45)
-    private String role;
+//    @Column(length = 45)
+//    private String role;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NoticeLike> likes;
+
+    public void setMemberInfo(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }
