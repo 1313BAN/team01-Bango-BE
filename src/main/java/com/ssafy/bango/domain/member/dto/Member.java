@@ -1,19 +1,17 @@
 package com.ssafy.bango.domain.member.dto;
 
 import com.ssafy.bango.domain.noticelikes.dto.NoticeLike;
+import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
@@ -30,7 +28,8 @@ public class Member {
     @Column(nullable = false)
     private SocialPlatform platformType;
 
-    private LocalDateTime createdAt;
+    @Column(nullable = false, length = 100)
+    private String socialId;
 
     @Column(nullable = false, length = 45)
     private String role;
