@@ -22,8 +22,8 @@ public class RentalController {
         return ResponseEntity.ok(rentalHouseService.getRentalHouses());
     }
 
-//    @GetMapping()
-//    public ResponseEntity<List<String>> getRentalHousesByRegion(@RequestParam String region) {
-//        return ResponseEntity.ok(rentalHouseService.getRentalHousesByRegion(region));
-//    }
+    @GetMapping("/by-region")
+    public ResponseEntity<List<RentalHouse>> getRentalHousesByRegion(@RequestParam String region) {
+        return ResponseEntity.ok(rentalHouseService.getRentalHousesByRegion(region));
+    }
 }
