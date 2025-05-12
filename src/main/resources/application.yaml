@@ -33,3 +33,7 @@ oauth:
     client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
     authorization-grant-type: "authorization_code"
     redirect-uri: "http://localhost:5173/auth/google/redirect"
+
+kakao:
+  api:
+    key: ${KAKAO_MAP_API_KEY}

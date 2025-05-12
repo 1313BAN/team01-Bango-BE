@@ -4,7 +4,6 @@ import com.ssafy.bango.domain.dongcode.dto.DongCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-//import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 

@@ -49,6 +49,14 @@ public enum ErrorType {
      * 409 CONFLICT
      */
     NICKNAME_DUP_ERROR(HttpStatus.CONFLICT, "중복된 회원 닉네임입니다."),
+
+    // 공공임대주택 관련 오류
+
+    /**
+     * 404 NOT FOUND
+     */
+    HOUSE_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 HOUSE ID 입니다."),
+
     MEMBER_ALREADY_EXIST_ERROR(HttpStatus.CONFLICT, "이미 존재하는 사용자입니다."),
 
     /**
