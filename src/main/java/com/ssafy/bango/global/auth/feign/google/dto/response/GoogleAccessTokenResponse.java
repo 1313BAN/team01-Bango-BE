@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.auth.fegin.kakao.dto.response;
+package com.ssafy.bango.global.auth.feign.google.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,11 +9,11 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class KakaoAccessTokenResponse {
+public class GoogleAccessTokenResponse {
     private String accessToken;
     private String refreshToken;
 
-    public static KakaoAccessTokenResponse of(String accessToken, String refreshToken) {
-        return new KakaoAccessTokenResponse(accessToken, refreshToken);
+    public static GoogleAccessTokenResponse of(String accessToken, String refreshToken) {
+        return new GoogleAccessTokenResponse(accessToken, refreshToken);
     }
 }

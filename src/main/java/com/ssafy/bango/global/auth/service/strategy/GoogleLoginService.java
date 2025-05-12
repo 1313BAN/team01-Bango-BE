@@ -1,10 +1,10 @@
 package com.ssafy.bango.global.auth.service.strategy;
 
 import com.ssafy.bango.domain.member.dto.Member;
-import com.ssafy.bango.global.auth.fegin.google.GoogleApiClient;
-import com.ssafy.bango.global.auth.fegin.google.GoogleAuthApiClient;
-import com.ssafy.bango.global.auth.fegin.google.dto.response.GoogleAccessTokenResponse;
-import com.ssafy.bango.global.auth.fegin.google.dto.response.GoogleUserResponse;
+import com.ssafy.bango.global.auth.feign.google.GoogleApiClient;
+import com.ssafy.bango.global.auth.feign.google.GoogleAuthApiClient;
+import com.ssafy.bango.global.auth.feign.google.dto.response.GoogleAccessTokenResponse;
+import com.ssafy.bango.global.auth.feign.google.dto.response.GoogleUserResponse;
 import com.ssafy.bango.global.auth.service.SocialLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

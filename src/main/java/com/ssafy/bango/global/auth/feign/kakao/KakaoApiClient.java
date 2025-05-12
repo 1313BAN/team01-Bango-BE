@@ -1,6 +1,6 @@
-package com.ssafy.bango.global.auth.fegin.kakao;
+package com.ssafy.bango.global.auth.feign.kakao;
 
-import com.ssafy.bango.global.auth.fegin.kakao.dto.response.KakaoUserResponse;
+import com.ssafy.bango.global.auth.feign.kakao.dto.response.KakaoUserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;

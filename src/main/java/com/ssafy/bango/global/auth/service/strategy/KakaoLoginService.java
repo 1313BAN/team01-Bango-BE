@@ -1,10 +1,10 @@
 package com.ssafy.bango.global.auth.service.strategy;
 
 import com.ssafy.bango.domain.member.dto.Member;
-import com.ssafy.bango.global.auth.fegin.kakao.KakaoApiClient;
-import com.ssafy.bango.global.auth.fegin.kakao.KakaoAuthApiClient;
-import com.ssafy.bango.global.auth.fegin.kakao.dto.response.KakaoAccessTokenResponse;
-import com.ssafy.bango.global.auth.fegin.kakao.dto.response.KakaoUserResponse;
+import com.ssafy.bango.global.auth.feign.kakao.KakaoApiClient;
+import com.ssafy.bango.global.auth.feign.kakao.KakaoAuthApiClient;
+import com.ssafy.bango.global.auth.feign.kakao.dto.response.KakaoAccessTokenResponse;
+import com.ssafy.bango.global.auth.feign.kakao.dto.response.KakaoUserResponse;
 import com.ssafy.bango.global.auth.service.SocialLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

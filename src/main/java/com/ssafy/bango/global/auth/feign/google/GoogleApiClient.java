@@ -1,6 +1,6 @@
-package com.ssafy.bango.global.auth.fegin.google;
+package com.ssafy.bango.global.auth.feign.google;
 
-import com.ssafy.bango.global.auth.fegin.google.dto.response.GoogleUserResponse;
+import com.ssafy.bango.global.auth.feign.google.dto.response.GoogleUserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
