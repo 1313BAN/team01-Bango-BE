@@ -36,4 +36,4 @@ oauth:
 
 kakao:
   api:
-    key: 08cda483cb4edb0166adc0d8710a1a75
+    key: ${KAKAO_MAP_API_KEY}
