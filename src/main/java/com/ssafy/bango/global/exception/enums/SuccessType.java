@@ -25,7 +25,8 @@ public enum SuccessType {
     GET_MYPAGE_SUCCESS(HttpStatus.OK, "마이페이지 조회에 성공했습니다."),
 
     GET_RENTALHOUSES_SUCCESS(HttpStatus.OK, "공공임대주택 리스트 조회에 성공했습니다."),
-    GET_RENTALHOUSES_BY_DONGCODE_SUCCESS(HttpStatus.OK, "동별 공공임대주택 리스트 조회에 성공했습니다.");
+    GET_RENTALHOUSES_BY_DONGCODE_SUCCESS(HttpStatus.OK, "동별 공공임대주택 리스트 조회에 성공했습니다."),
+    GET_RENTALHOUSE_SUCCESS(HttpStatus.OK, "공공임대주택 조회에 성공했습니다.");
 
 
     private final HttpStatus httpStatus;
