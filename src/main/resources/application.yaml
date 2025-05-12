@@ -32,12 +32,12 @@ jwt:
 
 oauth:
   kakao:
-    client-id: ${kakao-rest-api-key}
+    client-id: ${KAKAO_REST_API_KEY}
     authorization-grant-type: "authorization_code"
     redirect-uri: "http://localhost:5173/auth/kakao/redirect"
 
   google:
-    client-id: ${google-rest-api-key}
-    client-secret: ${google-oauth-client-secret}
+    client-id: ${GOOGLE_REST_API_KEY}
+    client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
     authorization-grant-type: "authorization_code"
     redirect-uri: "http://localhost:5173/auth/google/redirect"
