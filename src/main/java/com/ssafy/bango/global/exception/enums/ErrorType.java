@@ -20,6 +20,7 @@ public enum ErrorType {
     INVALID_HTTP_METHOD_ERROR(HttpStatus.BAD_REQUEST, "지원되지 않는 HTTP method 요청입니다."),
     INVALID_TOKEN_HEADER_ERROR(HttpStatus.BAD_REQUEST, "토큰 헤더값의 형식이 잘못되었습니다."),
     INVALID_CODE_ERROR(HttpStatus.BAD_REQUEST, "code 값의 형식이 잘못되었습니다."),
+    INVALID_SOCIAL_PLATFORM_ERROR(HttpStatus.BAD_REQUEST, "잘못된 소셜 플랫폼 이름입니다."),
 
     // 인증 관련 오류
     EMPTY_PRINCIPLE_ERROR(HttpStatus.BAD_REQUEST, "Principle 객체가 없습니다. (null)"),
@@ -42,8 +43,6 @@ public enum ErrorType {
      */
     NOT_FOUND_MEMBER_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
     NOT_FOUND_REFRESH_TOKEN_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 리프레시 토큰입니다."),
-    NOT_FOUND_BOOK_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 레큐북입니다."),
-    NOT_FOUND_STICKER_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 스티커입니다."),
     NOT_FOUND_FAVORITE_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 즐겨찾기입니다."),
 
     /**

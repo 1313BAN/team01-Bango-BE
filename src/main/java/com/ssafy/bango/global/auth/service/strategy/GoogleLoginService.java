@@ -1,8 +1,11 @@
-package com.ssafy.bango.global.auth.fegin.google;
+package com.ssafy.bango.global.auth.service.strategy;
 
 import com.ssafy.bango.domain.member.dto.Member;
+import com.ssafy.bango.global.auth.fegin.google.GoogleApiClient;
+import com.ssafy.bango.global.auth.fegin.google.GoogleAuthApiClient;
 import com.ssafy.bango.global.auth.fegin.google.dto.response.GoogleAccessTokenResponse;
 import com.ssafy.bango.global.auth.fegin.google.dto.response.GoogleUserResponse;
+import com.ssafy.bango.global.auth.service.SocialLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class GoogleLoginService {
+public class GoogleLoginService implements SocialLoginService {
     @Value("${oauth.google.client-id}")
     private String CLIENT_ID;
     @Value("${oauth.google.client-secret}")
@@ -25,7 +28,7 @@ public class GoogleLoginService {
     private final GoogleAuthApiClient googleAuthApiClient;
     private final GoogleApiClient googleApiClient;
 
-    public String getGoogleAccessToken(String code) {
+    public String getSocialAccessToken(String code) {
         GoogleAccessTokenResponse tokenResponse = googleAuthApiClient.getOAuth2AccessToken(
                 GRANT_TYPE,
                 CLIENT_ID,
@@ -38,13 +41,13 @@ public class GoogleLoginService {
         return tokenResponse.getAccessToken();
     }
 
-    public String getGoogleId(String socialAccessToken) {
+    public String getSocialId(String socialAccessToken) {
         GoogleUserResponse googleUser = googleApiClient.getUserInformation("Bearer " + socialAccessToken);
 
         return googleUser.getId();
     }
 
-    public void setGoogleInfo(Member loginMember, String socialAccessToken) {
+    public void setSocialInfo(Member loginMember, String socialAccessToken) {
         GoogleUserResponse googleUser = googleApiClient.getUserInformation("Bearer " + socialAccessToken);
 
         loginMember.setMemberInfo(googleUser.getName(), googleUser.getEmail());
