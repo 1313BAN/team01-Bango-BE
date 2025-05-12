@@ -2,6 +2,7 @@
 FROM amazoncorretto:17 as build
 WORKDIR /app
 COPY . .
+RUN chmod +x gradlew
 RUN ./gradlew build -x test
 
 # 실행 스테이지 (일종의 새로 os 설정하는 것)
