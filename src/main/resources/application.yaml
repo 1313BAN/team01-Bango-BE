@@ -6,19 +6,14 @@ spring:
     import: optional:file:.env[.properties]
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ssafyhome_db
-    password: ssafy
-    username: ssafy
+    url: jdbc:mysql://${BANGO_DB_URL}?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${BANGO_DB_USERNAME}
+    password: ${BANGO_DB_PASSWORD}
 
-  #  sql:
-#    init:
-#      mode: always
-#      schema-locations: classpath:/data.sql
 
   jpa:
     hibernate:
       ddl-auto: update  # ?? update
-    defer-datasource-initialization: true
 
   data:
     redis:
