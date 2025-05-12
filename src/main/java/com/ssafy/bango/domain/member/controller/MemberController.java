@@ -8,6 +8,7 @@ import com.ssafy.bango.domain.member.controller.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.dto.Member;
 import com.ssafy.bango.domain.member.service.MemberService;
 import com.ssafy.bango.global.common.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -42,7 +43,7 @@ public class MemberController implements MemberApi {
 
     @Override
     @GetMapping("/token")
-    public ResponseEntity<ApiResponse<String>> getAccessToken(@RequestBody GetAccessTokenRequest getAccessTokenRequest) {
+    public ResponseEntity<ApiResponse<String>> getAccessToken(@Valid @RequestBody GetAccessTokenRequest getAccessTokenRequest) {
         return ResponseEntity.ok(memberService.getSocialAccessToken(getAccessTokenRequest));
     }
 }
