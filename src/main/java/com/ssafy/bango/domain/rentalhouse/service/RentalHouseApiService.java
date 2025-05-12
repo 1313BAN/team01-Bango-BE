@@ -2,9 +2,9 @@ package com.ssafy.bango.domain.rentalhouse.service;
 
 import com.ssafy.bango.domain.rentalhouse.dao.RentalHouseDAO;
 import com.ssafy.bango.domain.rentalhouse.dao.RentalHouseStyleDAO;
-import com.ssafy.bango.domain.rentalhouse.dto.GeoPoint;
+import com.ssafy.bango.domain.rentalhouse.dto.response.GeoPointResponse;
 import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
-import com.ssafy.bango.domain.rentalhouse.dto.RentalHouseApiResponse;
+import com.ssafy.bango.domain.rentalhouse.dto.response.RentalHouseApiResponse;
 import com.ssafy.bango.domain.rentalhouse.dto.RentalHouseStyle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class RentalHouseApiService {
         RentalHouseApiResponse[] rentalData = response.getBody();
 
         for (RentalHouseApiResponse data : rentalData) {
-            Optional<GeoPoint> geo = geocodingService.getGeoFromAddress(data.getRnAdres());
+            Optional<GeoPointResponse> geo = geocodingService.getGeoFromAddress(data.getRnAdres());
 
             RentalHouse house = RentalHouse.builder()
                     .address(data.getRnAdres())
@@ -53,8 +53,8 @@ public class RentalHouseApiService {
                     .supplyType(data.getSuplyTyNm())
                     .institudeType(data.getInsttNm())
                     .builtAt(parseDate(data.getCompetDe()))
-                    .latitude(geo.map(GeoPoint::latitude).orElse(null))
-                    .longitude(geo.map(GeoPoint::longitude).orElse(null))
+                    .latitude(geo.map(GeoPointResponse::latitude).orElse(null))
+                    .longitude(geo.map(GeoPointResponse::longitude).orElse(null))
                     .build();
 
             rentalHouseDAO.save(house);

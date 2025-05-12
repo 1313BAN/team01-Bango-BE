@@ -1,8 +1,7 @@
 package com.ssafy.bango.domain.rentalhouse.controller;
 
-import com.ssafy.bango.domain.rentalhouse.dto.GeoPoint;
+import com.ssafy.bango.domain.rentalhouse.dto.response.GeoPointResponse;
 import com.ssafy.bango.domain.rentalhouse.service.GeocodingService;
-import com.ssafy.bango.domain.rentalhouse.service.RentalHouseApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class RentalHouseApiController {
 //    }
 
     @GetMapping("/address-point")
-    public Optional<GeoPoint> getGeoFromAddress(@RequestParam String address) {
+    public Optional<GeoPointResponse> getGeoFromAddress(@RequestParam String address) {
         return geocodingService.getGeoFromAddress(address);
     }
 }

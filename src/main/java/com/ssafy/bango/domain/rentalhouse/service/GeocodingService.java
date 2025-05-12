@@ -2,7 +2,7 @@ package com.ssafy.bango.domain.rentalhouse.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.bango.domain.rentalhouse.dto.GeoPoint;
+import com.ssafy.bango.domain.rentalhouse.dto.response.GeoPointResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -26,7 +26,7 @@ public class GeocodingService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public Optional<GeoPoint> getGeoFromAddress(String address) {
+    public Optional<GeoPointResponse> getGeoFromAddress(String address) {
         try {
             String url = UriComponentsBuilder
                     .fromHttpUrl("https://dapi.kakao.com/v2/local/search/address.json")
@@ -55,7 +55,7 @@ public class GeocodingService {
                 String lng = location.get("x").asText();
                 log.info("Extracted coordinates - lat: {}, lng: {}", lat, lng);
 
-                return Optional.of(new GeoPoint(lat, lng));
+                return Optional.of(new GeoPointResponse(lat, lng));
             }
         } catch (Exception e) {
             log.error("Error occurred while fetching geocode for address: {}", address, e);
