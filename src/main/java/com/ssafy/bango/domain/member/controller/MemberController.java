@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.ssafy.bango.global.exception.enums.SuccessType.MEMBER_CREATED;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/api/v1/member")
 @RequiredArgsConstructor
 public class MemberController implements MemberApi {
     private final MemberService memberService;
