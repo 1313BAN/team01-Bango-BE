@@ -24,7 +24,7 @@ public class MemberController implements MemberApi {
 
     @Override
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<TokenResponse>> signup(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<ApiResponse<TokenResponse>> signup(@Valid @RequestBody SignUpRequest signUpRequest) {
         return ResponseEntity.ok(ApiResponse.success(
                 MEMBER_CREATED,
                 memberService.signUp(signUpRequest)
