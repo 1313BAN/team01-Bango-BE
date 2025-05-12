@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rental")
+@RequestMapping("/api/v1/rental")
 @RequiredArgsConstructor
 public class RentalController {
     private final RentalHouseService rentalHouseService;
