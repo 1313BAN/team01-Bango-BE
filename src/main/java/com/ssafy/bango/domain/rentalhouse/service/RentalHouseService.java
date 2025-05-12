@@ -1,29 +1,27 @@
 package com.ssafy.bango.domain.rentalhouse.service;
 
-import com.ssafy.bango.domain.dongcode.dao.DongCodeDAO;
 import com.ssafy.bango.domain.rentalhouse.dao.RentalHouseDAO;
 import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
+import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RentalHouseService {
     private final RentalHouseDAO rentalHouseDAO;
-    private final DongCodeDAO dongCodeDAO;
 
     public List<RentalHouse> getRentalHouses() {
         return rentalHouseDAO.findAll();
     }
 
-    public List<RentalHouse> getRentalHousesByRegion(String dongName) {
-        String dongCode = dongCodeDAO.findDongCodeByDongName(dongName);
-        if (dongCode == null || dongCode.length() != 10) {
-            return List.of();
-        }
+    public List<RentalHouse> getRentalHousesByRegion(DongCodeRequest request) {
+        String dongCode = request.getDongCode();
 
         return rentalHouseDAO.findByPnuStartingWith(dongCode).stream()
             .filter(rentalHouse -> {
