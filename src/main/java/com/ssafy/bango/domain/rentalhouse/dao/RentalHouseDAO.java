@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RentalHouseDAO extends JpaRepository<RentalHouse, String> {
+public interface RentalHouseDAO extends JpaRepository<RentalHouse, Integer> {
     @Query("SELECT h FROM RentalHouse h LEFT JOIN FETCH h.styles")
     List<RentalHouse> findAllWithFetch();
 
