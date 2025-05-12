@@ -17,7 +17,7 @@ public class RentalHouseService {
     private final RentalHouseDAO rentalHouseDAO;
 
     public List<RentalHouse> getRentalHouses() {
-        return rentalHouseDAO.findAll();
+        return rentalHouseDAO.findAllWithFetch();
     }
 
     public List<RentalHouse> getRentalHousesByRegion(DongCodeRequest request) {

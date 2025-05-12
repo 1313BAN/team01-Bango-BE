@@ -1,5 +1,6 @@
 package com.ssafy.bango.domain.rentalhouse.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ public class RentalHouseStyle {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer styleId;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "house_id", nullable = false)
   private RentalHouse rentalHouse;
