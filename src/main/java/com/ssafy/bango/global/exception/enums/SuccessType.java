@@ -27,7 +27,7 @@ public enum SuccessType {
     // 공공임대주택 관련
     GET_RENTALHOUSES_SUCCESS(HttpStatus.OK, "공공임대주택 리스트 조회에 성공했습니다."),
     GET_RENTALHOUSES_BY_DONGCODE_SUCCESS(HttpStatus.OK, "동별 공공임대주택 리스트 조회에 성공했습니다."),
-    GET_RENTALHOUSE_SUCCESS(HttpStatus.OK, "공공임대주택 조회에 성공했습니다.");
+    GET_RENTALHOUSE_SUCCESS(HttpStatus.OK, "공공임대주택 조회에 성공했습니다."),
 
     /**
      * 201 CREATED
