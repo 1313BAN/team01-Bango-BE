@@ -2,47 +2,34 @@ spring:
   application:
     name: bango
 
-  config:
-    import: optional:file:.env[.properties]
+  profiles:
+    default: local
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ssafyhome_db
-    password: ssafy
-    username: ssafy
-
-  #  sql:
-#    init:
-#      mode: always
-#      schema-locations: classpath:/data.sql
+    url: jdbc:mysql://${BANGO_DB_URL}?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${BANGO_DB_USERNAME}
+    password: ${BANGO_DB_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: update  # ?? update
-    defer-datasource-initialization: true
+      ddl-auto: update
 
   data:
     redis:
-      host: localhost
-      port: 6379
-
-  h2:
-    console:
-      path: /h2-console
-      enabled: true
-      settings:
-        web-allow-others: true
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 
 jwt:
   secret: ${JWT_SECRET_KEY}
 
 oauth:
   kakao:
-    client-id: ${kakao-rest-api-key}
+    client-id: ${KAKAO_REST_API_KEY}
     authorization-grant-type: "authorization_code"
     redirect-uri: "http://localhost:5173/auth/kakao/redirect"
 
   google:
-    client-id: ${google-rest-api-key}
-    client-secret: ${google-oauth-client-secret}
+    client-id: ${GOOGLE_REST_API_KEY}
+    client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
     authorization-grant-type: "authorization_code"
     redirect-uri: "http://localhost:5173/auth/google/redirect"
