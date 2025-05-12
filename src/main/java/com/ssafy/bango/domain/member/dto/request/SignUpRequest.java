@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.member.controller.dto.request;
+package com.ssafy.bango.domain.member.dto.request;
 
 import com.ssafy.bango.domain.member.dto.SocialPlatform;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.member.controller.dto.response;
+package com.ssafy.bango.domain.member.dto.response;
 
 import com.ssafy.bango.global.auth.jwt.TokenDTO;
 

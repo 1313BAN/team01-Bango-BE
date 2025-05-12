@@ -1,10 +1,10 @@
 package com.ssafy.bango.domain.member.controller;
 
 
-import com.ssafy.bango.domain.member.controller.dto.request.GetAccessTokenRequest;
-import com.ssafy.bango.domain.member.controller.dto.request.LoginRequest;
-import com.ssafy.bango.domain.member.controller.dto.request.SignUpRequest;
-import com.ssafy.bango.domain.member.controller.dto.response.TokenResponse;
+import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
+import com.ssafy.bango.domain.member.dto.request.LoginRequest;
+import com.ssafy.bango.domain.member.dto.request.SignUpRequest;
+import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.dto.Member;
 import com.ssafy.bango.domain.member.service.MemberService;
 import com.ssafy.bango.global.common.ApiResponse;
