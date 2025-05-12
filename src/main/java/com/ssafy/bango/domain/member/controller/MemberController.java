@@ -32,7 +32,7 @@ public class MemberController implements MemberApi {
     }
 
     @Override
-    public ResponseEntity<ApiResponse<TokenResponse>> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         return null;
     }
 
