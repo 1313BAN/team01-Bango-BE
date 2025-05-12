@@ -29,9 +29,10 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**", "/api/v1/dongcode/**", "/swagger-ui/**").permitAll()
-            .requestMatchers("/h2-console/**").permitAll()
-            .anyRequest().authenticated()
+//            .requestMatchers("/api/auth/**", "/api/v1/dongcode/**", "/swagger-ui/**").permitAll()
+//            .requestMatchers("/h2-console/**").permitAll()
+//            .anyRequest().authenticated()
+                .anyRequest().permitAll()
         )
         .sessionManagement(session -> session
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
