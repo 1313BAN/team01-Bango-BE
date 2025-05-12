@@ -37,11 +37,11 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtExceptionFilter, JwtExceptionFilter.class)
+                .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter.class)
                 .build();
     }
 
-    /**
+    /*
      * WebMvcConfigurer 대신 Security 앞단에서 CORS를 처리할 CorsConfigurationSource
      * Security는 Spring MVC 이전에 Filter에서 동작하기 때문에 따로 처리해주어야 함.
      */
