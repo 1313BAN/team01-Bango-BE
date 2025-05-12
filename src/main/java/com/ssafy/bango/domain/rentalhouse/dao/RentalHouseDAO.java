@@ -1,7 +1,6 @@
 package com.ssafy.bango.domain.rentalhouse.dao;
 
 import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
-import feign.Param;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +17,5 @@ public interface RentalHouseDAO extends JpaRepository<RentalHouse, Integer> {
     List<RentalHouse> findByPnuStartingWith(String pnuPrefix);
 
     @Query("SELECT r FROM RentalHouse r LEFT JOIN FETCH r.styles WHERE r.houseId = :houseId")
-    Optional<RentalHouse> findByHouseIdWithStyles(@Param("houseId") int houseId);
+    Optional<RentalHouse> findByHouseIdWithStyles(int houseId);
 }

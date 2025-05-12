@@ -1,7 +1,6 @@
 package com.ssafy.bango.domain.dongcode.dao;
 
 import com.ssafy.bango.domain.dongcode.dto.DongCode;
-import feign.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
