@@ -1,9 +1,10 @@
 package com.ssafy.bango.domain.member.dao;
 
-import com.ssafy.bango.domain.member.dto.MemberDTO;
+import com.ssafy.bango.domain.member.dto.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MemberDAO {
-    MemberDTO findById(String id);
-    int insertMember(MemberDTO member);
-    int updateMember(MemberDTO member);
+@Repository
+public interface MemberDAO extends JpaRepository<Member, Long> {
+    boolean existsBySocialId(String socialId);
 }
