@@ -1,6 +1,6 @@
-package com.ssafy.bango.domain.rentalnotice.dto;
+package com.ssafy.bango.domain.rentalnotice.entity;
 
-import com.ssafy.bango.domain.noticelikes.dto.NoticeLike;
+import com.ssafy.bango.domain.noticelikes.entity.NoticeLike;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

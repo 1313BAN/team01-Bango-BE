@@ -4,7 +4,7 @@ import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSE
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSES_SUCCESS;
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSE_SUCCESS;
 
-import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
+import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
 import com.ssafy.bango.domain.rentalhouse.service.RentalHouseService;
 import com.ssafy.bango.global.common.ApiResponse;

@@ -1,6 +1,6 @@
 package com.ssafy.bango.domain.dongcode.controller;
 
-import com.ssafy.bango.domain.dongcode.dto.DongCode;
+import com.ssafy.bango.domain.dongcode.entity.DongCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 

@@ -1,11 +1,9 @@
-package com.ssafy.bango.domain.rentalhouse.dto;
+package com.ssafy.bango.domain.rentalhouse.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
