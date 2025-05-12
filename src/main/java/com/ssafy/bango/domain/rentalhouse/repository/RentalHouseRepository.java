@@ -1,6 +1,6 @@
-package com.ssafy.bango.domain.rentalhouse.dao;
+package com.ssafy.bango.domain.rentalhouse.repository;
 
-import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
+import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RentalHouseDAO extends JpaRepository<RentalHouse, Integer> {
+public interface RentalHouseRepository extends JpaRepository<RentalHouse, Integer> {
     @Query("SELECT h FROM RentalHouse h LEFT JOIN FETCH h.styles")
     List<RentalHouse> findAllWithFetch();
 

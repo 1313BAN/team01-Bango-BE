@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.member.dto;
+package com.ssafy.bango.domain.member.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -2,8 +2,8 @@ package com.ssafy.bango.domain.rentalhouse.service;
 
 import static com.ssafy.bango.global.exception.enums.ErrorType.HOUSE_ID_NOT_FOUND;
 
-import com.ssafy.bango.domain.rentalhouse.dao.RentalHouseDAO;
-import com.ssafy.bango.domain.rentalhouse.dto.RentalHouse;
+import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
+import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
 import com.ssafy.bango.global.exception.CustomException;
 import java.util.stream.Collectors;
@@ -17,16 +17,16 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RentalHouseService {
-    private final RentalHouseDAO rentalHouseDAO;
+    private final RentalHouseRepository rentalHouseRepository;
 
     public List<RentalHouse> getRentalHouses() {
-        return rentalHouseDAO.findAllWithFetch();
+        return rentalHouseRepository.findAllWithFetch();
     }
 
     public List<RentalHouse> getRentalHousesByRegion(DongCodeRequest request) {
         String dongCode = request.getDongCode();
 
-        return rentalHouseDAO.findByPnuStartingWith(dongCode).stream()
+        return rentalHouseRepository.findByPnuStartingWith(dongCode).stream()
             .filter(rentalHouse -> {
                 String pnu = rentalHouse.getPnu();
                 return pnu != null && pnu.length() >= 10 && pnu.substring(0, 10).equals(dongCode);
@@ -35,7 +35,7 @@ public class RentalHouseService {
     }
 
     public RentalHouse getRentalHouse(int houseId) {
-        return rentalHouseDAO.findByHouseIdWithStyles(houseId)
+        return rentalHouseRepository.findByHouseIdWithStyles(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
     }
 }

@@ -3,9 +3,9 @@ package com.ssafy.bango.domain.member.service;
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
 import com.ssafy.bango.domain.member.dto.request.SignUpRequest;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
-import com.ssafy.bango.domain.member.dao.MemberDAO;
-import com.ssafy.bango.domain.member.dto.Member;
-import com.ssafy.bango.domain.member.dto.SocialPlatform;
+import com.ssafy.bango.domain.member.repository.MemberRepository;
+import com.ssafy.bango.domain.member.entity.Member;
+import com.ssafy.bango.domain.member.entity.SocialPlatform;
 import com.ssafy.bango.global.auth.jwt.JwtProvider;
 import com.ssafy.bango.global.auth.jwt.TokenDTO;
 import com.ssafy.bango.global.auth.security.UserAuthentication;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
-    private final MemberDAO memberDAO;
+    private final MemberRepository memberRepository;
     private final OAuthService oAuthService;
 
     private final JwtProvider jwtProvider;
@@ -33,7 +33,7 @@ public class MemberService {
 
         // 중복 유저 검증
         String socialId = oAuthService.getSocialId(socialPlatform, accessToken);
-        if (memberDAO.existsBySocialId(socialId)) {
+        if (memberRepository.existsBySocialId(socialId)) {
             throw new CustomException(ErrorType.MEMBER_ALREADY_EXIST_ERROR);
         }
 
@@ -56,7 +56,7 @@ public class MemberService {
                 .socialId(socialId)
                 .build();
 
-        memberDAO.save(member);
+        memberRepository.save(member);
         oAuthService.setSocialInfo(socialPlatform, accessToken, member);
 
         return member;

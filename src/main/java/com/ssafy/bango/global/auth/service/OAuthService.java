@@ -1,7 +1,7 @@
 package com.ssafy.bango.global.auth.service;
 
-import com.ssafy.bango.domain.member.dto.Member;
-import com.ssafy.bango.domain.member.dto.SocialPlatform;
+import com.ssafy.bango.domain.member.entity.Member;
+import com.ssafy.bango.domain.member.entity.SocialPlatform;
 import com.ssafy.bango.global.auth.service.factory.SocialLoginServiceFactory;
 import com.ssafy.bango.global.common.ApiResponse;
 import com.ssafy.bango.global.exception.enums.SuccessType;

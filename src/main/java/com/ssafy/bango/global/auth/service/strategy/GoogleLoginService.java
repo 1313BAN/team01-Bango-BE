@@ -1,6 +1,6 @@
 package com.ssafy.bango.global.auth.service.strategy;
 
-import com.ssafy.bango.domain.member.dto.Member;
+import com.ssafy.bango.domain.member.entity.Member;
 import com.ssafy.bango.global.auth.feign.google.GoogleApiClient;
 import com.ssafy.bango.global.auth.feign.google.GoogleAuthApiClient;
 import com.ssafy.bango.global.auth.feign.google.dto.response.GoogleAccessTokenResponse;

@@ -1,6 +1,6 @@
 package com.ssafy.bango.domain.member.dto.request;
 
-import com.ssafy.bango.domain.member.dto.SocialPlatform;
+import com.ssafy.bango.domain.member.entity.SocialPlatform;
 import jakarta.validation.constraints.NotNull;
 
 public record SignUpRequest(

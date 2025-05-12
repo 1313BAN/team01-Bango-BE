@@ -1,6 +1,6 @@
 package com.ssafy.bango.global.auth.service.strategy;
 
-import com.ssafy.bango.domain.member.dto.Member;
+import com.ssafy.bango.domain.member.entity.Member;
 import com.ssafy.bango.global.auth.feign.kakao.KakaoApiClient;
 import com.ssafy.bango.global.auth.feign.kakao.KakaoAuthApiClient;
 import com.ssafy.bango.global.auth.feign.kakao.dto.response.KakaoAccessTokenResponse;

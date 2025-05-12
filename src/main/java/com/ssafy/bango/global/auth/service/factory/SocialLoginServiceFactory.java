@@ -1,6 +1,6 @@
 package com.ssafy.bango.global.auth.service.factory;
 
-import com.ssafy.bango.domain.member.dto.SocialPlatform;
+import com.ssafy.bango.domain.member.entity.SocialPlatform;
 import com.ssafy.bango.global.auth.service.SocialLoginService;
 import com.ssafy.bango.global.auth.service.strategy.GoogleLoginService;
 import com.ssafy.bango.global.auth.service.strategy.KakaoLoginService;
