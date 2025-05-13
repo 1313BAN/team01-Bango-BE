@@ -32,8 +32,10 @@ public class RentalHouseApiController {
 //    }
 
     @GetMapping("/geocoding")
-    public Optional<GeoPointResponse> getGeoFromAddress(@RequestParam String address) {
-        return geocodingService.getGeoFromAddress(address);
+    public ResponseEntity<?> getGeoFromAddress(@RequestParam String address) {
+        Optional<GeoPointResponse> geo = geocodingService.getGeoFromAddress(address);
+        return geo.map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @GetMapping("/facilities/nearby")
