@@ -22,7 +22,7 @@ public enum SuccessType {
     SOCIAL_ACCESS_TOKEN_SUCCESS(HttpStatus.OK, "OAuth2 엑세스 토큰을 가져오는데 성공했습니다."),
     SET_MEMBER_NICKNAME_SUCCESS(HttpStatus.OK, "유저 닉네임을 설정하여 회원가입에 성공했습니다."),
 
-    GET_MYPAGE_SUCCESS(HttpStatus.OK, "마이페이지 조회에 성공했습니다."),
+    GET_ME_SUCCESS(HttpStatus.OK, "회원 조회에 성공했습니다."),
   
     // 공공임대주택 관련
     GET_RENTALHOUSES_SUCCESS(HttpStatus.OK, "공공임대주택 리스트 조회에 성공했습니다."),
