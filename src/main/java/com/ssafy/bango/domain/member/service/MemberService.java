@@ -31,16 +31,12 @@ public class MemberService {
         String accessToken = loginRequest.socialAccessToken();
         SocialPlatform socialPlatform = loginRequest.socialPlatform();
 
-        // 유저 정보가 없을 경우 회원가입
         String socialId = oAuthService.getSocialId(socialPlatform, accessToken);
-        if (!memberRepository.existsBySocialId(socialId)) {
-            signUp(socialPlatform, socialId, accessToken);
-        }
 
-        // DB에 유저 정보를 조회하고, 없을 경우 예외
+        // DB에 유저 정보를 조회하고, 없을 경우 회원 가입
         Member loginMember = memberRepository
                 .getMemberBySocialId(socialId)
-                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
+                .orElseGet(() -> signUp(socialPlatform, socialId, accessToken));
 
         // 토큰 발행
         TokenDTO tokenDTO = jwtProvider.issueToken(
@@ -53,7 +49,7 @@ public class MemberService {
     /**
      * 멤버를 생성하고, kakao/google로부터 받아온 정보 설정.
      */
-    private void signUp(SocialPlatform socialPlatform, String socialId, String accessToken) {
+    private Member signUp(SocialPlatform socialPlatform, String socialId, String accessToken) {
         Member member = Member.builder()
                 .socialPlatform(socialPlatform)
                 .socialId(socialId)
@@ -61,6 +57,8 @@ public class MemberService {
 
         memberRepository.save(member);
         oAuthService.setSocialInfo(socialPlatform, accessToken, member);
+
+        return member;
     }
 
     @Transactional
