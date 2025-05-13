@@ -38,7 +38,7 @@ public class KakaoFacilityService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final FacilityRepository facilityRepository;
-    private final RentalHouseRepository rentalHouseRepository;
+    private final RentalHouseService rentalHouseService;
 
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
@@ -87,7 +87,7 @@ public class KakaoFacilityService {
         JsonNode documents = jsonResponse.path("documents");
 
         if (documents.isArray() && !documents.isEmpty()) {
-            RentalHouse house = rentalHouseRepository.findByHouseId(houseId);
+            RentalHouse house = rentalHouseService.getRentalHouseByHouseId(houseId);
             JsonNode closestFacility = documents.get(0);
 
             Facility facility = Facility.builder()

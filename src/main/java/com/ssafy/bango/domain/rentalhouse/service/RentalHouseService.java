@@ -40,4 +40,9 @@ public class RentalHouseService {
         return rentalHouseRepository.findByHouseIdWithStyles(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
     }
+
+    public RentalHouse getRentalHouseByHouseId(int houseId) {
+        return rentalHouseRepository.findByHouseId(houseId)
+            .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
+    }
 }
