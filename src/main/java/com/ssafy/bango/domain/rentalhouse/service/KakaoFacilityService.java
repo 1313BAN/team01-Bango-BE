@@ -41,7 +41,7 @@ public class KakaoFacilityService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public void saveClosestFacilities(FacilityRequest request) {
+    public ResponseEntity<Void> saveClosestFacilities(FacilityRequest request) {
         HttpEntity<?> entity = buildHttpEntity();
 
         for (FacilityType type : FacilityType.values()) {
@@ -51,11 +51,14 @@ public class KakaoFacilityService {
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
                 JsonNode jsonResponse = objectMapper.readTree(response.getBody());
                 saveClosestFacility(type, jsonResponse, request.getHouseId());
+            } catch (CustomException e) {
+                throw e;
             } catch (Exception e) {
                 log.error("Failed to parse Kakao API response", e);
                 throw new CustomException(JSON_PARSING_ERROR);
             }
         }
+        return ResponseEntity.noContent().build();
     }
 
     private String buildUrl(String type, String x, String y) {

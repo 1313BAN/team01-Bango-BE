@@ -6,6 +6,7 @@ import com.ssafy.bango.domain.rentalhouse.service.KakaoFacilityService;
 import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,8 @@ public class RentalHouseApiController {
     }
 
     @GetMapping("/facilities/nearby")
-    public void saveClosestFacilities(@ModelAttribute FacilityRequest request) {
+    public ResponseEntity<Void> saveClosestFacilities(@ModelAttribute FacilityRequest request) {
         facilityService.saveClosestFacilities(request);
+        return ResponseEntity.noContent().build();
     }
 }
