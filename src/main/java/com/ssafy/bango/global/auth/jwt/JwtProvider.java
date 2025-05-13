@@ -12,10 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.security.Principal;
 import java.util.Base64;
 import java.util.Date;
 
 import static com.ssafy.bango.global.exception.enums.ErrorType.*;
+import static java.util.Objects.isNull;
 
 @Component
 @RequiredArgsConstructor
@@ -131,5 +133,13 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public Long getMemberIdFromPrincipal(Principal principal) {
+        if (isNull(principal)) {
+            throw new CustomException(EMPTY_PRINCIPLE_ERROR);
+        }
+
+        return Long.valueOf(principal.getName());
     }
 }

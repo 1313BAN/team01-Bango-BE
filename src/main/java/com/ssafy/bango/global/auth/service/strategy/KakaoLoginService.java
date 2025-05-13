@@ -50,8 +50,8 @@ public class KakaoLoginService implements SocialLoginService {
         KakaoUserResponse kakaoUser = kakaoApiClient.getUserInfomation("Bearer " + socialAccessToken);
 
         loginMember.setMemberInfo(
-                kakaoUser.getKakaoAccount().getName(),
-                kakaoUser.getKakaoAccount().getEmail()
+                kakaoUser.getKakaoAccount().getProfile().getNickname(),
+                ""
         );
     }
 }
