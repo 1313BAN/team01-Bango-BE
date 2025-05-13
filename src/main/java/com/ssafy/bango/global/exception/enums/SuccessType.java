@@ -37,7 +37,7 @@ public enum SuccessType {
     /**
      * 204 NO CONTENT
      */
-    WITHDRAW_MEMBER_SUCCESS(HttpStatus.CREATED, "회원 탈퇴가 완료되었습니다.");
+    WITHDRAW_MEMBER_SUCCESS(HttpStatus.NO_CONTENT, "회원 탈퇴가 완료되었습니다.");
 
 
     private final HttpStatus httpStatus;
