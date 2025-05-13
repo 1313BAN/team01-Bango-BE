@@ -27,7 +27,6 @@ public class KakaoGeocodingService {
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/address.json";
     private static final String HEADER_AUTH_PREFIX = "KakaoAK ";
     private static final String QUERY_PARAM_KEY = "query";
-    private static final String HEADER_AUTHORIZATION = "Authorization";
 
     private final RestTemplate restTemplate;
 
@@ -57,7 +56,7 @@ public class KakaoGeocodingService {
     private HttpEntity<?> buildHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(java.util.List.of(MediaType.APPLICATION_JSON));
-        headers.set(HEADER_AUTHORIZATION, HEADER_AUTH_PREFIX + kakaoApiKey);
+        headers.set(HttpHeaders.AUTHORIZATION, HEADER_AUTH_PREFIX + kakaoApiKey);
         return new HttpEntity<>(headers);
     }
 

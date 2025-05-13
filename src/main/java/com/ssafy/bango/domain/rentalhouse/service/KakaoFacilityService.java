@@ -9,7 +9,6 @@ import com.ssafy.bango.domain.rentalhouse.entity.enums.FacilityType;
 import com.ssafy.bango.domain.rentalhouse.entity.Facility;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.repository.FacilityRepository;
-import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +31,6 @@ public class KakaoFacilityService {
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
     private static final String HEADER_AUTH_PREFIX = "KakaoAK ";
     private static final String QUERY_PARAM_KEY = "query";
-    private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final Integer RADIUS = 8000;
 
     private final RestTemplate restTemplate;
@@ -79,7 +77,7 @@ public class KakaoFacilityService {
     private HttpEntity<?> buildHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(java.util.List.of(MediaType.APPLICATION_JSON));
-        headers.set(HEADER_AUTHORIZATION, HEADER_AUTH_PREFIX + kakaoApiKey);
+        headers.set(HttpHeaders.AUTHORIZATION, HEADER_AUTH_PREFIX + kakaoApiKey);
         return new HttpEntity<>(headers);
     }
 
