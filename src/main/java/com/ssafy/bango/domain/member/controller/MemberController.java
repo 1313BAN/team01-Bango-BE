@@ -47,7 +47,7 @@ public class MemberController implements MemberApi {
     }
 
     @Override
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<ApiResponse<?>> logout(Principal principal) {
         memberService.logout(principal);
         return ResponseEntity.ok(ApiResponse.success(LOGOUT_SUCCESS));
