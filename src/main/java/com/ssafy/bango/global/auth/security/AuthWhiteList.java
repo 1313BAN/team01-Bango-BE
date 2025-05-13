@@ -6,8 +6,11 @@ import java.util.stream.Stream;
 
 public class AuthWhiteList {
     public static final List<String> AUTH_WHITELIST_DEFAULT = Arrays.asList(
-            "/member/signup", "/member/login", "/member/token"
-            , "/error", "/health"
+            "/member/signup", "/member/login", "/member/token",
+            "/error", "/health",
+            "/api/v1/rental",
+            "/api/v1/rental/**",
+            "/api/v1/rental/api/geocoding"
     );
 
     public static final List<String> AUTH_WHITELIST_WILDCARD = Arrays.asList(
