@@ -67,7 +67,7 @@ public class KakaoGeocodingService {
 
         if (!documents.isArray() || documents.isEmpty()) return Optional.empty();
 
-        JsonNode location = root.get("documents").get(0);
+        JsonNode location = documents.path(0);
         String lat = location.get("y").asText();
         String lng = location.get("x").asText();
         return Optional.of(new GeoPointResponse(lat, lng));
