@@ -36,7 +36,7 @@ public class RentalHouseService {
             .collect(Collectors.toList());
     }
 
-    public RentalHouse getRentalHouse(int houseId) {
+    public RentalHouse getRentalHouseWithStyles(int houseId) {
         return rentalHouseRepository.findByHouseIdWithStyles(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
     }

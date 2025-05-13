@@ -36,6 +36,6 @@ public class RentalHouseController {
 
     @GetMapping("/{houseId}")
     public ApiResponse<RentalHouse> getRentalHouse(@PathVariable int houseId) {
-        return ApiResponse.success(GET_RENTALHOUSE_SUCCESS, rentalHouseService.getRentalHouse(houseId));
+        return ApiResponse.success(GET_RENTALHOUSE_SUCCESS, rentalHouseService.getRentalHouseWithStyles(houseId));
     }
 }
