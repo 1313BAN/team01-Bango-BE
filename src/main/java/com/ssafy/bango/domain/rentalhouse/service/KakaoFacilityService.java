@@ -20,12 +20,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class KakaoFacilityService {
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
     private static final String HEADER_AUTH_PREFIX = "KakaoAK ";
@@ -41,6 +43,7 @@ public class KakaoFacilityService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
+    @Transactional
     public ResponseEntity<Void> saveClosestFacilities(FacilityRequest request) {
         HttpEntity<?> entity = buildHttpEntity();
 
