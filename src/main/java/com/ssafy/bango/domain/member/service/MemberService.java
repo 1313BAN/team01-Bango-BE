@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.member.service;
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
 import com.ssafy.bango.domain.member.dto.request.LoginRequest;
+import com.ssafy.bango.domain.member.dto.response.MemberInfoResponse;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.repository.MemberRepository;
 import com.ssafy.bango.domain.member.entity.Member;
@@ -71,5 +72,16 @@ public class MemberService {
     @Transactional
     public void logout(Principal principal) {
         jwtProvider.deleteRefreshToken(jwtProvider.getMemberIdFromPrincipal(principal));
+    }
+
+    public MemberInfoResponse me(Principal principal) {
+        Long memberId = jwtProvider.getMemberIdFromPrincipal(principal);
+        Member member = memberRepository.getMemberByMemberId(memberId);
+
+        return MemberInfoResponse.of(
+                member.getName(),
+                member.getEmail(),
+                member.getSocialPlatform()
+        );
     }
 }
