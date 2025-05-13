@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.ssafy.bango.global.exception.enums.SuccessType.LOGOUT_SUCCESS;
-import static com.ssafy.bango.global.exception.enums.SuccessType.MEMBER_CREATED;
+import static com.ssafy.bango.global.exception.enums.SuccessType.*;
 
 @RestController
 @RequestMapping("/api/v1/member")
@@ -28,7 +27,7 @@ public class MemberController implements MemberApi {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(ApiResponse.success(
-                MEMBER_CREATED,
+                LOGIN_SUCCESS,
                 memberService.login(loginRequest)
         ));
     }
@@ -45,6 +44,7 @@ public class MemberController implements MemberApi {
     }
 
     @Override
+    @GetMapping("/logout")
     public ResponseEntity<ApiResponse<?>> logout(Principal principal) {
         memberService.logout(principal);
         return ResponseEntity.ok(ApiResponse.success(LOGOUT_SUCCESS));
