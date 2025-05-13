@@ -16,5 +16,7 @@ public interface MemberApi {
 
     ResponseEntity<ApiResponse<MemberInfoResponse>> me(Principal principal);
 
+    ResponseEntity<ApiResponse<?>> withdraw(Principal principal);
+
     ResponseEntity<ApiResponse<String>> getAccessToken(GetAccessTokenRequest getAccessTokenRequest);
 }

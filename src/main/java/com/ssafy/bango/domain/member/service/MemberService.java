@@ -84,4 +84,11 @@ public class MemberService {
                 member.getSocialPlatform()
         );
     }
+
+    @Transactional
+    public void withdraw(Principal principal) {
+        Long memberId = jwtProvider.getMemberIdFromPrincipal(principal);
+        memberRepository.deleteById(memberId);
+        jwtProvider.deleteRefreshToken(memberId);
+    }
 }

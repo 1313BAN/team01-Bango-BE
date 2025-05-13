@@ -34,6 +34,7 @@ public class MemberController implements MemberApi {
     @Override
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<MemberInfoResponse>> me(Principal principal) {
+
         return ResponseEntity.ok(ApiResponse.success(
                 GET_ME_SUCCESS,
                 memberService.me(principal)
@@ -43,13 +44,23 @@ public class MemberController implements MemberApi {
     @Override
     @GetMapping("/token")
     public ResponseEntity<ApiResponse<String>> getAccessToken(@Valid @RequestBody GetAccessTokenRequest getAccessTokenRequest) {
+
         return ResponseEntity.ok(memberService.getSocialAccessToken(getAccessTokenRequest));
     }
 
     @Override
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<?>> logout(Principal principal) {
+
         memberService.logout(principal);
         return ResponseEntity.ok(ApiResponse.success(LOGOUT_SUCCESS));
+    }
+
+    @Override
+    @DeleteMapping("/me")
+    public ResponseEntity<ApiResponse<?>> withdraw(Principal principal) {
+
+        memberService.withdraw(principal);
+        return ResponseEntity.ok(ApiResponse.success(WITHDRAW_MEMBER_SUCCESS));
     }
 }

@@ -32,7 +32,12 @@ public enum SuccessType {
     /**
      * 201 CREATED
      */
-    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다.");
+    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다."),
+
+    /**
+     * 204 NO CONTENT
+     */
+    WITHDRAW_MEMBER_SUCCESS(HttpStatus.CREATED, "회원 탈퇴가 완료되었습니다.");
 
 
     private final HttpStatus httpStatus;
