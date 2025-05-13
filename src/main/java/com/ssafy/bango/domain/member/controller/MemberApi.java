@@ -1,7 +1,6 @@
 package com.ssafy.bango.domain.member.controller;
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
-import com.ssafy.bango.domain.member.dto.request.LoginRequest;
 import com.ssafy.bango.domain.member.dto.request.SignUpRequest;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.entity.Member;
@@ -11,8 +10,6 @@ import org.springframework.security.core.Authentication;
 
 public interface MemberApi {
     ResponseEntity<ApiResponse<TokenResponse>> signup(SignUpRequest signUpRequest);
-
-    ResponseEntity<ApiResponse<TokenResponse>> login(LoginRequest loginRequest);
 
     ResponseEntity<ApiResponse<Member>> me(Authentication auth);
 

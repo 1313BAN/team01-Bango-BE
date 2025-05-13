@@ -69,7 +69,4 @@ public class MemberService {
                 getAccessTokenRequest.code()
         );
     }
-
-    public void login() {
-    }
 }

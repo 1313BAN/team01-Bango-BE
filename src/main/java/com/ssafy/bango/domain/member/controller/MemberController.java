@@ -2,7 +2,6 @@ package com.ssafy.bango.domain.member.controller;
 
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
-import com.ssafy.bango.domain.member.dto.request.LoginRequest;
 import com.ssafy.bango.domain.member.dto.request.SignUpRequest;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.entity.Member;
@@ -29,11 +28,6 @@ public class MemberController implements MemberApi {
                 MEMBER_CREATED,
                 memberService.signUp(signUpRequest)
         ));
-    }
-
-    @Override
-    public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
-        return null;
     }
 
     @Override
