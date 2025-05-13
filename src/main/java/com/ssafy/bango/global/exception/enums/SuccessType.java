@@ -21,6 +21,7 @@ public enum SuccessType {
     LOGOUT_SUCCESS(HttpStatus.OK, "로그아웃에 성공했습니다."),
     SOCIAL_ACCESS_TOKEN_SUCCESS(HttpStatus.OK, "OAuth2 엑세스 토큰을 가져오는데 성공했습니다."),
     SET_MEMBER_NICKNAME_SUCCESS(HttpStatus.OK, "유저 닉네임을 설정하여 회원가입에 성공했습니다."),
+    WITHDRAW_MEMBER_SUCCESS(HttpStatus.OK, "회원 탈퇴가 완료되었습니다."),
 
     GET_ME_SUCCESS(HttpStatus.OK, "회원 조회에 성공했습니다."),
   
@@ -32,12 +33,7 @@ public enum SuccessType {
     /**
      * 201 CREATED
      */
-    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다."),
-
-    /**
-     * 204 NO CONTENT
-     */
-    WITHDRAW_MEMBER_SUCCESS(HttpStatus.NO_CONTENT, "회원 탈퇴가 완료되었습니다.");
+    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다.");
 
 
     private final HttpStatus httpStatus;
