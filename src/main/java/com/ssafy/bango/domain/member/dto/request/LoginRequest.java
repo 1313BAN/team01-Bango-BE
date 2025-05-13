@@ -3,7 +3,7 @@ package com.ssafy.bango.domain.member.dto.request;
 import com.ssafy.bango.domain.member.entity.SocialPlatform;
 import jakarta.validation.constraints.NotNull;
 
-public record SignUpRequest(
+public record LoginRequest(
         @NotNull(message = "social accessToken은 필수 입니다.")
         String socialAccessToken,
 

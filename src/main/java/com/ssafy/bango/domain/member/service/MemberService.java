@@ -1,7 +1,7 @@
 package com.ssafy.bango.domain.member.service;
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
-import com.ssafy.bango.domain.member.dto.request.SignUpRequest;
+import com.ssafy.bango.domain.member.dto.request.LoginRequest;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.repository.MemberRepository;
 import com.ssafy.bango.domain.member.entity.Member;
@@ -27,9 +27,9 @@ public class MemberService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public TokenResponse signUp(SignUpRequest signUpRequest) {
-        String accessToken = signUpRequest.socialAccessToken();
-        SocialPlatform socialPlatform = signUpRequest.socialPlatform();
+    public TokenResponse login(LoginRequest loginRequest) {
+        String accessToken = loginRequest.socialAccessToken();
+        SocialPlatform socialPlatform = loginRequest.socialPlatform();
 
         // 중복 유저 검증
         String socialId = oAuthService.getSocialId(socialPlatform, accessToken);
@@ -47,7 +47,7 @@ public class MemberService {
         return TokenResponse.of(signUpMember.getMemberId(), tokenDTO);
     }
 
-    /*
+    /**
      * 멤버를 생성하고, kakao/google로부터 받아온 정보 설정.
      */
     private Member signUp(SocialPlatform socialPlatform, String socialId, String accessToken) {
