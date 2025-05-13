@@ -61,7 +61,7 @@ public class MemberController implements MemberApi {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<ApiResponse<TokenResponse>> reissueToken(@RequestBody ReissueRequest reissueRequest) {
+    public ResponseEntity<ApiResponse<TokenResponse>> reissueToken(@Valid @RequestBody ReissueRequest reissueRequest) {
 
         return ResponseEntity.ok(ApiResponse.success(
                 REISSUE_SUCCESS,
