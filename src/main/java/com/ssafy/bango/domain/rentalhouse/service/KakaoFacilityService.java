@@ -58,7 +58,7 @@ public class KakaoFacilityService {
         }
     }
 
-    private String buildUrl(String type, String x, String y) {;
+    private String buildUrl(String type, String x, String y) {
         return UriComponentsBuilder.fromUriString(KAKAO_API_URL)
             .queryParam(QUERY_PARAM_KEY, type)
             .queryParam("x", x)
