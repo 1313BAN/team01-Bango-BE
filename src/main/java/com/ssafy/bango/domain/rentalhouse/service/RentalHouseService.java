@@ -10,12 +10,14 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RentalHouseService {
     private final RentalHouseRepository rentalHouseRepository;
 
@@ -34,8 +36,13 @@ public class RentalHouseService {
             .collect(Collectors.toList());
     }
 
-    public RentalHouse getRentalHouse(int houseId) {
+    public RentalHouse getRentalHouseWithStyles(int houseId) {
         return rentalHouseRepository.findByHouseIdWithStyles(houseId)
+            .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
+    }
+
+    public RentalHouse getRentalHouseByHouseId(int houseId) {
+        return rentalHouseRepository.findByHouseId(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
     }
 }

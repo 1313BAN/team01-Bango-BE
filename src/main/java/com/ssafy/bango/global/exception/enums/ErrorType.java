@@ -21,6 +21,7 @@ public enum ErrorType {
     INVALID_TOKEN_HEADER_ERROR(HttpStatus.BAD_REQUEST, "토큰 헤더값의 형식이 잘못되었습니다."),
     INVALID_CODE_ERROR(HttpStatus.BAD_REQUEST, "code 값의 형식이 잘못되었습니다."),
     INVALID_SOCIAL_PLATFORM_ERROR(HttpStatus.BAD_REQUEST, "잘못된 소셜 플랫폼 이름입니다."),
+    JSON_PARSING_ERROR(HttpStatus.BAD_REQUEST, "JSON 파싱에 실패했습니다."),
 
     // 인증 관련 오류
     EMPTY_PRINCIPLE_ERROR(HttpStatus.BAD_REQUEST, "Principle 객체가 없습니다. (null)"),

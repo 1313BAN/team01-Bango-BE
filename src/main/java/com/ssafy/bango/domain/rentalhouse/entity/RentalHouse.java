@@ -1,20 +1,21 @@
 package com.ssafy.bango.domain.rentalhouse.entity;
 
+import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RentalHouse {
+public class RentalHouse extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer houseId;
@@ -63,4 +64,7 @@ public class RentalHouse {
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RentalHouseStyle> styles;
+
+  @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Facility> facilities;
 }

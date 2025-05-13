@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/rental")
 @RequiredArgsConstructor
-public class RentalController {
+public class RentalHouseController {
     private final RentalHouseService rentalHouseService;
 
     @GetMapping()
@@ -36,6 +36,6 @@ public class RentalController {
 
     @GetMapping("/{houseId}")
     public ApiResponse<RentalHouse> getRentalHouse(@PathVariable int houseId) {
-        return ApiResponse.success(GET_RENTALHOUSE_SUCCESS, rentalHouseService.getRentalHouse(houseId));
+        return ApiResponse.success(GET_RENTALHOUSE_SUCCESS, rentalHouseService.getRentalHouseWithStyles(houseId));
     }
 }

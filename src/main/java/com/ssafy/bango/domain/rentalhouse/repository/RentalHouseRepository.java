@@ -18,4 +18,6 @@ public interface RentalHouseRepository extends JpaRepository<RentalHouse, Intege
 
     @Query("SELECT r FROM RentalHouse r LEFT JOIN FETCH r.styles WHERE r.houseId = :houseId")
     Optional<RentalHouse> findByHouseIdWithStyles(int houseId);
+
+    Optional<RentalHouse> findByHouseId(int houseId);
 }

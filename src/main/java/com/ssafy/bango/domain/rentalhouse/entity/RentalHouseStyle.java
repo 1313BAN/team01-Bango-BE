@@ -1,18 +1,19 @@
 package com.ssafy.bango.domain.rentalhouse.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RentalHouseStyle {
+public class RentalHouseStyle extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer styleId;
