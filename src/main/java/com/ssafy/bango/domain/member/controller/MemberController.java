@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
+import static com.ssafy.bango.global.exception.enums.SuccessType.LOGOUT_SUCCESS;
 import static com.ssafy.bango.global.exception.enums.SuccessType.MEMBER_CREATED;
 
 @RestController
@@ -39,5 +42,11 @@ public class MemberController implements MemberApi {
     @GetMapping("/token")
     public ResponseEntity<ApiResponse<String>> getAccessToken(@Valid @RequestBody GetAccessTokenRequest getAccessTokenRequest) {
         return ResponseEntity.ok(memberService.getSocialAccessToken(getAccessTokenRequest));
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse<?>> logout(Principal principal) {
+        memberService.logout(principal);
+        return ResponseEntity.ok(ApiResponse.success(LOGOUT_SUCCESS));
     }
 }

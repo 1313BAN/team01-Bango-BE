@@ -11,11 +11,11 @@ import com.ssafy.bango.global.auth.jwt.TokenDTO;
 import com.ssafy.bango.global.auth.security.UserAuthentication;
 import com.ssafy.bango.global.auth.service.OAuthService;
 import com.ssafy.bango.global.common.ApiResponse;
-import com.ssafy.bango.global.exception.CustomException;
-import com.ssafy.bango.global.exception.enums.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.Principal;
 
 @Service
 @Transactional(readOnly = true)
@@ -61,11 +61,15 @@ public class MemberService {
         return member;
     }
 
-    @Transactional
     public ApiResponse<String> getSocialAccessToken(GetAccessTokenRequest getAccessTokenRequest) {
         return oAuthService.getSocialAccessToken(
                 getAccessTokenRequest.socialPlatform(),
                 getAccessTokenRequest.code()
         );
+    }
+
+    @Transactional
+    public void logout(Principal principal) {
+        jwtProvider.deleteRefreshToken(jwtProvider.getMemberIdFromPrincipal(principal));
     }
 }

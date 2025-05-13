@@ -8,8 +8,12 @@ import com.ssafy.bango.global.common.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
+import java.security.Principal;
+
 public interface MemberApi {
     ResponseEntity<ApiResponse<TokenResponse>> login(LoginRequest loginRequest);
+
+    ResponseEntity<ApiResponse<?>> logout(Principal principal);
 
     ResponseEntity<ApiResponse<Member>> me(Authentication auth);
 
