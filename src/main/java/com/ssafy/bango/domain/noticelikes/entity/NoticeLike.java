@@ -2,18 +2,19 @@ package com.ssafy.bango.domain.noticelikes.entity;
 
 import com.ssafy.bango.domain.member.entity.Member;
 import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
+import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoticeLike {
+public class NoticeLike extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer likeId;

@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.rentalhouse.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.bango.domain.rentalhouse.entity.enums.FacilityType;
+import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,15 +15,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Facility {
+public class Facility extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer facilityId;
