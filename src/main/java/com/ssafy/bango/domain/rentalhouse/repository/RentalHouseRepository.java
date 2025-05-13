@@ -1,6 +1,9 @@
 package com.ssafy.bango.domain.rentalhouse.repository;
 
+import static com.ssafy.bango.global.exception.enums.ErrorType.HOUSE_ID_NOT_FOUND;
+
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
+import com.ssafy.bango.global.exception.CustomException;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +21,8 @@ public interface RentalHouseRepository extends JpaRepository<RentalHouse, Intege
 
     @Query("SELECT r FROM RentalHouse r LEFT JOIN FETCH r.styles WHERE r.houseId = :houseId")
     Optional<RentalHouse> findByHouseIdWithStyles(int houseId);
+
+    default RentalHouse findByHouseId(Integer houseId) {
+        return findById(houseId).orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
+    }
 }

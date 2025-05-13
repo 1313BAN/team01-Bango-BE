@@ -63,4 +63,7 @@ public class RentalHouse {
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RentalHouseStyle> styles;
+
+  @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Facility> facilities;
 }

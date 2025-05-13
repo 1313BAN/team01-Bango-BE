@@ -10,7 +10,8 @@ public class AuthWhiteList {
             "/error", "/health",
             "/api/v1/rental",
             "/api/v1/rental/**",
-            "/api/v1/rental/api/geocoding"
+            "/api/v1/rental/api/geocoding",
+            "/api/v1/rental/api/facilities/nearby"
     );
 
     public static final List<String> AUTH_WHITELIST_WILDCARD = Arrays.asList(
