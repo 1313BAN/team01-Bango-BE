@@ -23,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RentalHouseApiService {
     private final RestTemplate restTemplate;
-    private final GeocodingService geocodingService;
+    private final KakaoGeocodingService geocodingService;
     private final RentalHouseRepository rentalHouseRepository;
     private final RentalHouseStyleRepository rentalHouseStyleRepository;
 

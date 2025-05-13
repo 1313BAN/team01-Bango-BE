@@ -1,7 +1,7 @@
 package com.ssafy.bango.domain.rentalhouse.controller;
 
 import com.ssafy.bango.domain.rentalhouse.dto.response.GeoPointResponse;
-import com.ssafy.bango.domain.rentalhouse.service.GeocodingService;
+import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class RentalHouseApiController {
 
 //    private final RentalHouseApiService rentalHouseApiService;
-    private final GeocodingService geocodingService;
+    private final KakaoGeocodingService geocodingService;
 
 //    @GetMapping("/fetch-and-save")
 //    public String fetchAndSaveRentalHouses() {

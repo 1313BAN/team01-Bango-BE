@@ -21,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class GeocodingService {
+public class KakaoGeocodingService {
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/address.json";
     private static final String HEADER_AUTH_PREFIX = "KakaoAK ";
     private static final String QUERY_PARAM_KEY = "query";
