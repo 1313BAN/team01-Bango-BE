@@ -10,7 +10,8 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAccount {
-    private String name;
-    private String email;
+    // name, email은 사업자 등록해야 사용 가능
+//    private String name;
+//    private String email;
     private KakaoUserProfile profile;
 }
