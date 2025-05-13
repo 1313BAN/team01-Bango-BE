@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +52,12 @@ public class GoogleLoginService implements SocialLoginService {
 
     public void setSocialInfo(Member loginMember, String socialAccessToken) {
         GoogleUserResponse googleUser = googleApiClient.getUserInformation("Bearer " + socialAccessToken);
+        String username = googleUser.getName();
 
-        loginMember.setMemberInfo(googleUser.getName(), googleUser.getEmail());
+        if (isNull(username)) {
+            username = "Google_User_" + UUID.randomUUID().toString().substring(0, 6);
+        }
+
+        loginMember.setMemberInfo(username, googleUser.getEmail());
     }
 }
