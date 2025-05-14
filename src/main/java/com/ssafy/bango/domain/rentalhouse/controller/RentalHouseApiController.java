@@ -20,16 +20,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/rental/api")
 public class RentalHouseApiController {
-
-//    private final RentalHouseApiService rentalHouseApiService;
     private final KakaoGeocodingService geocodingService;
     private final KakaoFacilityService facilityService;
-
-//    @GetMapping("/fetch-and-save")
-//    public String fetchAndSaveRentalHouses() {
-//        rentalHouseApiService.fetchAndSaveFromOpenApi();
-//        return "success";
-//    }
 
     @GetMapping("/geocoding")
     public ResponseEntity<?> getGeoFromAddress(@RequestParam String address) {
