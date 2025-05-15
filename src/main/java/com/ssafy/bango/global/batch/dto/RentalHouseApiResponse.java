@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.rentalhouse.dto.response;
+package com.ssafy.bango.global.batch.dto;
 
 import lombok.Getter;
 import lombok.Setter;
