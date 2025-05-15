@@ -3,8 +3,8 @@ package com.ssafy.bango.global.batch.job;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.entity.enums.RentalHouseEnums;
+import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
-import com.ssafy.bango.domain.rentalhouse.service.RentalHouseService;
 import com.ssafy.bango.global.batch.chunk.OpenApiItemProcessor;
 import com.ssafy.bango.global.batch.chunk.OpenApiItemReader;
 import com.ssafy.bango.global.batch.chunk.OpenApiItemWriter;
@@ -39,7 +39,7 @@ public class BatchConfiguration {
 
     private final DeleteDataTasklet deleteDataTasklet;
     private final KakaoGeocodingService kakaoGeocodingService;
-    private final RentalHouseService rentalHouseService;
+    private final RentalHouseRepository rentalHouseRepository;
 
     @Bean
     public Job openApiJob(
@@ -97,6 +97,6 @@ public class BatchConfiguration {
 
     @Bean
     public ItemWriter<List<RentalHouse>> openApiItemWriter() {
-        return new OpenApiItemWriter(rentalHouseService);
+        return new OpenApiItemWriter(rentalHouseRepository);
     }
 }
