@@ -31,8 +31,8 @@ public enum SuccessType {
     GET_RENTALHOUSE_SUCCESS(HttpStatus.OK, "공공임대주택 조회에 성공했습니다."),
 
     // 공공임대주택 공고 관련
-    GET_RENTALNOTCIE_LIST_SUCCESS(HttpStatus.OK, "공공임대주택 공고 리스트 조회에 성공했습니다."),
-    GET_RENTALNOTCIE_SUCCESS(HttpStatus.OK, "공공임대주택 공고 단일 조회에 성공했습니다."),
+    GET_RENTALNOTICE_LIST_SUCCESS(HttpStatus.OK, "공공임대주택 공고 리스트 조회에 성공했습니다."),
+    GET_RENTALNOTICE_SUCCESS(HttpStatus.OK, "공공임대주택 공고 단일 조회에 성공했습니다."),
 
     /**
      * 201 CREATED
