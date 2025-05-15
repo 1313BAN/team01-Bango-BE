@@ -5,6 +5,9 @@ import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
 import com.ssafy.bango.domain.rentalnotice.feign.RentalNoticeApiService;
 import com.ssafy.bango.domain.rentalnotice.repository.RentalNoticeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +20,13 @@ public class RentalNoticeService {
     private final RentalNoticeRepository rentalNoticeRepository;
     private final RentalNoticeApiService rentalNoticeApiService;
 
-    public NoticeListResponse getRentalNoticeList() {
-        List<RentalNotice> rentalNoticeList = rentalNoticeRepository.findAll();
+    public NoticeListResponse getRentalNoticeList(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        Page<RentalNotice> rentalNoticeList = rentalNoticeRepository.findAll(pageable);
         return NoticeListResponse.of(
-                rentalNoticeList.size(),
-                rentalNoticeList
+                pageNo,
+                rentalNoticeList.getNumberOfElements(),
+                rentalNoticeList.toList()
         );
     }
 

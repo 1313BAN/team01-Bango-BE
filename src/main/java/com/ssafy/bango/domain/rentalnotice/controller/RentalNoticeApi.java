@@ -7,5 +7,5 @@ import org.springframework.http.ResponseEntity;
 public interface RentalNoticeApi {
     void getRentalListTest();
 
-    ResponseEntity<ApiResponse<NoticeListResponse>> getRentalNoticeList();
+    ResponseEntity<ApiResponse<NoticeListResponse>> getRentalNoticeList(int pageNo, int pageSize);
 }

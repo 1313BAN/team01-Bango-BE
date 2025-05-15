@@ -4,9 +4,9 @@ import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
 
 import java.util.List;
 
-public record NoticeListResponse(int totalCount, List<RentalNotice> rentalNoticeList) {
+public record NoticeListResponse(int pageNo, int pageCount, List<RentalNotice> rentalNoticeList) {
 
-    public static NoticeListResponse of(int totalCount, List<RentalNotice> rentalNoticeList) {
-        return new NoticeListResponse(totalCount, rentalNoticeList);
+    public static NoticeListResponse of(int pageNo, int pageCount, List<RentalNotice> rentalNoticeList) {
+        return new NoticeListResponse(pageNo, pageCount, rentalNoticeList);
     }
 }

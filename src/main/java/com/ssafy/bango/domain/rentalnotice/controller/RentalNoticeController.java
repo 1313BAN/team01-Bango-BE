@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALNOTCIE_LIST_SUCCESS;
+import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALNOTICE_LIST_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +24,13 @@ public class RentalNoticeController implements RentalNoticeApi {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<NoticeListResponse>> getRentalNoticeList() {
+    public ResponseEntity<ApiResponse<NoticeListResponse>> getRentalNoticeList(
+            @RequestParam(defaultValue = "1") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
         return ResponseEntity.ok(ApiResponse.success(
-                GET_RENTALNOTCIE_LIST_SUCCESS,
-                rentalNoticeService.getRentalNoticeList()
+                GET_RENTALNOTICE_LIST_SUCCESS,
+                rentalNoticeService.getRentalNoticeList(pageNo, pageSize)
         ));
     }
 }
