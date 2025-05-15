@@ -74,11 +74,11 @@ public class MemberService {
 
     @Transactional
     public void logout(Principal principal) {
-        jwtProvider.deleteRefreshToken(jwtProvider.getMemberIdFromPrincipal(principal));
+        jwtProvider.deleteRefreshToken(JwtProvider.getMemberIdFromPrincipal(principal));
     }
 
     public MemberInfoResponse me(Principal principal) {
-        Long memberId = jwtProvider.getMemberIdFromPrincipal(principal);
+        Long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
         Member member = memberRepository.getMemberByMemberId(memberId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
 
@@ -91,7 +91,7 @@ public class MemberService {
 
     @Transactional
     public void withdraw(Principal principal) {
-        Long memberId = jwtProvider.getMemberIdFromPrincipal(principal);
+        Long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
         memberRepository.deleteById(memberId);
         jwtProvider.deleteRefreshToken(memberId);
     }

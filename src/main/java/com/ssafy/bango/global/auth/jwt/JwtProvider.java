@@ -135,7 +135,7 @@ public class JwtProvider {
                 .getBody();
     }
 
-    public Long getMemberIdFromPrincipal(Principal principal) {
+    public static Long getMemberIdFromPrincipal(Principal principal) {
         if (isNull(principal)) {
             throw new CustomException(EMPTY_PRINCIPLE_ERROR);
         }
