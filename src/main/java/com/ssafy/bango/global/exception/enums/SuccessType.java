@@ -37,7 +37,8 @@ public enum SuccessType {
     /**
      * 201 CREATED
      */
-    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다.");
+    MEMBER_CREATED(HttpStatus.CREATED, "회원가입에 성공했습니다."),
+    ADD_LIKED_NOTICE_CREATED(HttpStatus.CREATED, "관심 공고가 추가되었습니다.");
 
 
     private final HttpStatus httpStatus;
