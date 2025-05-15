@@ -44,7 +44,7 @@ public enum SuccessType {
     /**
      * 204 NO CONTENT
      */
-    DELETE_LIKED_NOTICE_SUCCESS(HttpStatus.NOT_FOUND, "관심 공고가 더이상 존재하지 않습니다.");
+    DELETE_LIKED_NOTICE_SUCCESS(HttpStatus.NO_CONTENT, "관심 공고가 더이상 존재하지 않습니다.");
 
 
     private final HttpStatus httpStatus;
