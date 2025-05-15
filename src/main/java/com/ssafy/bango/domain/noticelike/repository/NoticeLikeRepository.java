@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface NoticeLikeRepository extends JpaRepository<NoticeLike, Integer> {
     Optional<NoticeLike> getNoticeLikeByMemberAndRentalNotice(Member member, RentalNotice rentalNotice);
+
+    void deleteByMemberAndRentalNotice(Member member, RentalNotice rentalNotice);
 }

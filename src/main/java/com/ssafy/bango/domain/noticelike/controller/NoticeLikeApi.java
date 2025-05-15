@@ -8,4 +8,6 @@ import java.security.Principal;
 
 public interface NoticeLikeApi {
     ResponseEntity<ApiResponse<NoticeLike>> addLikedNotice(Integer noticeId, Principal principal);
+
+    ResponseEntity<ApiResponse<?>> deleteLikedNotice(Integer noticeId, Principal principal);
 }
