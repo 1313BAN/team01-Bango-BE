@@ -78,7 +78,7 @@ public class BatchConfiguration {
     @StepScope
     public ItemReader<List<RentalHouseApiResponse>> openApiItemReader(
             @Value("${open.api.rentalHouse.url}") String openApiUrl,
-            @Value("${open.api.rentalHouse.key}") String openApiServiceKey) throws Exception {
+            @Value("${open.api.rentalHouse.key}") String openApiServiceKey) {
 
         return new OpenApiItemReader(
                 openApiUrl,
