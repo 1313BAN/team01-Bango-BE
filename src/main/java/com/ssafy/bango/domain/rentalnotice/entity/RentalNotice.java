@@ -1,6 +1,6 @@
 package com.ssafy.bango.domain.rentalnotice.entity;
 
-import com.ssafy.bango.domain.noticelikes.entity.NoticeLike;
+import com.ssafy.bango.domain.noticelike.entity.NoticeLike;
 import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

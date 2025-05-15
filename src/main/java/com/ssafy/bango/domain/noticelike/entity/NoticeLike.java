@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.noticelikes.entity;
+package com.ssafy.bango.domain.noticelike.entity;
 
 import com.ssafy.bango.domain.member.entity.Member;
 import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
