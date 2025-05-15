@@ -1,5 +1,6 @@
 package com.ssafy.bango.domain.noticelike.controller;
 
+import com.ssafy.bango.domain.noticelike.dto.response.LikedNoticeResponse;
 import com.ssafy.bango.domain.noticelike.entity.NoticeLike;
 import com.ssafy.bango.domain.noticelike.service.NoticeLikeService;
 import com.ssafy.bango.global.common.ApiResponse;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.ssafy.bango.global.exception.enums.SuccessType.ADD_LIKED_NOTICE_CREATED;
-import static com.ssafy.bango.global.exception.enums.SuccessType.DELETE_LIKED_NOTICE_SUCCESS;
+import static com.ssafy.bango.global.exception.enums.SuccessType.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,5 +34,14 @@ public class NoticeLikeController implements NoticeLikeApi {
         noticeLikeService.deleteLikedNotice(noticeId, principal);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .body(ApiResponse.success(DELETE_LIKED_NOTICE_SUCCESS));
+    }
+
+    @GetMapping("/like")
+    public ResponseEntity<ApiResponse<LikedNoticeResponse>> getLikedNoticeList(Principal principal) {
+
+        return ResponseEntity.ok(ApiResponse.success(
+                GET_LIKED_NOTICE_SUCCESS,
+                noticeLikeService.getLikedNoticeList(principal)
+        ));
     }
 }

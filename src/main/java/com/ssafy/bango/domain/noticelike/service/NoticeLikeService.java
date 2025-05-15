@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.noticelike.service;
 
 import com.ssafy.bango.domain.member.entity.Member;
 import com.ssafy.bango.domain.member.repository.MemberRepository;
+import com.ssafy.bango.domain.noticelike.dto.response.LikedNoticeResponse;
 import com.ssafy.bango.domain.noticelike.entity.NoticeLike;
 import com.ssafy.bango.domain.noticelike.repository.NoticeLikeRepository;
 import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.List;
 
 import static com.ssafy.bango.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
 import static com.ssafy.bango.global.exception.enums.ErrorType.NOT_FOUND_NOTICE_ERROR;
@@ -52,5 +54,18 @@ public class NoticeLikeService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_NOTICE_ERROR));
 
         noticeLikeRepository.deleteByMemberAndRentalNotice(member, rentalNotice);
+    }
+
+    public LikedNoticeResponse getLikedNoticeList(Principal principal) {
+        Long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+
+        Member member = memberRepository.getMemberByMemberId(memberId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
+
+        List<NoticeLike> noticeLikeList = noticeLikeRepository.getNoticeLikesByMember(member);
+        return LikedNoticeResponse.of(
+                noticeLikeList.size(),
+                noticeLikeList
+        );
     }
 }

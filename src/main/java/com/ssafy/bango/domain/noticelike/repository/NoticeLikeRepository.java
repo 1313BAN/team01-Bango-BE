@@ -6,6 +6,7 @@ import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,6 @@ public interface NoticeLikeRepository extends JpaRepository<NoticeLike, Integer>
     Optional<NoticeLike> getNoticeLikeByMemberAndRentalNotice(Member member, RentalNotice rentalNotice);
 
     void deleteByMemberAndRentalNotice(Member member, RentalNotice rentalNotice);
+
+    List<NoticeLike> getNoticeLikesByMember(Member member);
 }

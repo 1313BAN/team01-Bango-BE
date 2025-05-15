@@ -21,7 +21,7 @@ public class NoticeLike extends BaseTimeEntity {
   @JoinColumn(name = "member_id", nullable = false)
   private Member member;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "notice_id", nullable = false)
   private RentalNotice rentalNotice;
 
