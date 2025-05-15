@@ -55,9 +55,6 @@ public class RentalHouse extends BaseTimeEntity {
   private String houseType;
 
   @Column(length = 30)
-  private String buildStyle;
-
-  @Column(length = 30)
   private String hasElevator;
 
   @Column(length = 30)
@@ -70,10 +67,10 @@ public class RentalHouse extends BaseTimeEntity {
   private String longitude;
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<RentalHouseStyle> styles = new ArrayList<>();
+  private List<RentalHouseStyle> styles;
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Facility> facilities = new ArrayList<>();
+  private List<Facility> facilities;
 
   public static RentalHouse from(RentalHouseApiResponse dto, GeoPointResponse geo) {
     RentalHouse house = RentalHouse.builder()
@@ -87,7 +84,6 @@ public class RentalHouse extends BaseTimeEntity {
         .builtAt(parseDate(dto.getCompetDe()))
         .supplyType(dto.getSuplyTyNm())
         .houseType(dto.getHouseTyNm())
-        .buildStyle(dto.getStyleNm())
         .hasElevator(dto.getElvtrInstlAtNm())
         .parkingCount(dto.getParkngCo() != null ? dto.getParkngCo().toString() : null)
         .latitude(geo != null ? geo.latitude() : null)

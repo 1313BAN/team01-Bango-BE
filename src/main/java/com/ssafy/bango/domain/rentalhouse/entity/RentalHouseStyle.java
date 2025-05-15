@@ -24,6 +24,9 @@ public class RentalHouseStyle extends BaseTimeEntity {
   @JoinColumn(name = "house_id", nullable = false)
   private RentalHouse rentalHouse;
 
+  @Column(length = 30)
+  private String buildStyle;
+
   private Integer baseDeposit;
 
   private Integer baseMonthlyRent;
@@ -40,6 +43,7 @@ public class RentalHouseStyle extends BaseTimeEntity {
   public static RentalHouseStyle from(RentalHouseApiResponse dto, RentalHouse house) {
     return RentalHouseStyle.builder()
         .rentalHouse(house)
+        .buildStyle(dto.getStyleNm())
         .styleName(dto.getStyleNm())
         .baseDeposit(dto.getBassRentGtn())
         .baseMonthlyRent(dto.getBassMtRntchrg())

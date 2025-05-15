@@ -34,7 +34,6 @@ public class CustomRentalHouseMap extends PropertyMap<RentalHouseApiResponse, Re
 
         map(source.getRnAdres(), destination.getAddress());
         map(source.getPnu(), destination.getPnu());
-        map(source.getStyleNm(), destination.getBuildStyle());
         map(source.getElvtrInstlAtNm(), destination.getHasElevator());
         map(source.getParkngCo(), destination.getParkingCount());
         map(source.getHouseTyNm(), destination.getHouseType());
