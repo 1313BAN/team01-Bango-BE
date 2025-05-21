@@ -43,7 +43,7 @@ public class RentalHouseStyle extends BaseTimeEntity {
   public static RentalHouseStyle from(RentalHouseApiResponse dto, RentalHouse house) {
     return RentalHouseStyle.builder()
         .rentalHouse(house)
-        .buildStyle(dto.getStyleNm())
+        .buildStyle(dto.getBuldStleNm())
         .styleName(dto.getStyleNm())
         .baseDeposit(dto.getBassRentGtn())
         .baseMonthlyRent(dto.getBassMtRntchrg())

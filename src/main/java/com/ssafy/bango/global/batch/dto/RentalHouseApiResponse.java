@@ -21,6 +21,7 @@ public class RentalHouseApiResponse {
     private Double suplyPrvuseAr;
     private Double suplyCmnuseAr;
     private String houseTyNm;
+    private String buldStleNm;
     private String elvtrInstlAtNm;
     private Integer parkngCo;
     private Integer bassRentGtn;
