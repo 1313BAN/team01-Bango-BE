@@ -1,7 +1,5 @@
 package com.ssafy.bango.domain.rentalnotice.dto;
 
-import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
-
 import java.util.List;
 
 public record NoticeListResponseWithLiked(int pageNo, int pageCount, List<NoticeWithLiked> noticeWithLikeds) {
