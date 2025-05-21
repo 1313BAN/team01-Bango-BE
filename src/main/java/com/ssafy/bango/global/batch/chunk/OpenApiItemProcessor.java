@@ -1,8 +1,12 @@
 package com.ssafy.bango.global.batch.chunk;
 
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
+import com.ssafy.bango.domain.rentalhouse.entity.RentalHouseStyle;
 import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
 import com.ssafy.bango.global.batch.dto.RentalHouseApiResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -13,25 +17,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OpenApiItemProcessor implements ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> {
     private final KakaoGeocodingService geocodingService;
+    private Map<String, RentalHouse> houseMap = new HashMap<>();
 
     @Override
     public List<RentalHouse> process(List<RentalHouseApiResponse> apiResponseList) {
         log.info(">>> processing {} items", apiResponseList.size());
         long start = System.currentTimeMillis();
 
-        List<RentalHouse> result = apiResponseList.stream()
-                .map(dto -> {
-                    // dto.getPnu() 와 dto.getRnAddress() 를 함께 넘겨,
-                    // PNU 단위로 캐싱된 geo를 먼저 찾고, 없으면 API 호출
-                    var geoOpt = geocodingService.getGeoFromAddress(
-                            dto.getPnu(), dto.getRnAdres()
-                    );
-                    return RentalHouse.from(dto, geoOpt.orElse(null));
-                })
-                .toList();
+        makeRentalHouseAndRentalHouseStyle(apiResponseList);
 
         long end = System.currentTimeMillis();
         log.warn(">>>>> Mapper Duration: {} ms", end - start);
-        return result;
+        return new ArrayList<>(houseMap.values());
+    }
+
+    private void makeRentalHouseAndRentalHouseStyle(List<RentalHouseApiResponse> apiResponseList) {
+        for (RentalHouseApiResponse dto : apiResponseList) {
+            String pnu = dto.getPnu();
+
+            RentalHouse house = houseMap.get(pnu);
+            if (house == null) {
+                var geo = geocodingService.getGeoFromAddress(pnu, dto.getRnAdres()).orElse(null);
+                house = RentalHouse.from(dto, geo);
+                houseMap.put(pnu, house);
+            }
+            addStyleToExistingHouse(dto, house);
+        }
+    }
+
+    private void addStyleToExistingHouse(RentalHouseApiResponse dto, RentalHouse existingHouse) {
+        RentalHouseStyle style = RentalHouseStyle.from(dto, existingHouse);
+        existingHouse.getStyles().add(style);
     }
 }
