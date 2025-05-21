@@ -5,9 +5,9 @@ import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.entity.enums.RentalHouseEnums;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
-import com.ssafy.bango.global.batch.chunk.OpenApiItemProcessor;
-import com.ssafy.bango.global.batch.chunk.OpenApiItemReader;
-import com.ssafy.bango.global.batch.chunk.OpenApiItemWriter;
+import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemProcessor;
+import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemReader;
+import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemWriter;
 import com.ssafy.bango.global.batch.dto.RentalHouseApiResponse;
 import com.ssafy.bango.global.batch.tasklet.DeleteDataTasklet;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +80,7 @@ public class BatchConfiguration {
             @Value("${open.api.rentalHouse.url}") String openApiUrl,
             @Value("${open.api.rentalHouse.key}") String openApiServiceKey) {
 
-        return new OpenApiItemReader(
+        return new RentalHouseApiItemReader(
                 openApiUrl,
                 openApiServiceKey,
                 new RestTemplate(),
@@ -92,11 +92,11 @@ public class BatchConfiguration {
     @Bean
     @StepScope
     public ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> openApiItemProcessor() {
-        return new OpenApiItemProcessor(kakaoGeocodingService);
+        return new RentalHouseApiItemProcessor(kakaoGeocodingService);
     }
 
     @Bean
     public ItemWriter<List<RentalHouse>> openApiItemWriter() {
-        return new OpenApiItemWriter(rentalHouseRepository);
+        return new RentalHouseApiItemWriter(rentalHouseRepository);
     }
 }

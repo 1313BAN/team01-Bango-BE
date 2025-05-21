@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.chunk;
+package com.ssafy.bango.global.batch.chunk.rentalhouse;
 
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouseStyle;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class OpenApiItemProcessor implements ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> {
+public class RentalHouseApiItemProcessor implements ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> {
     private final KakaoGeocodingService geocodingService;
     private Map<String, RentalHouse> houseMap = new HashMap<>();
 

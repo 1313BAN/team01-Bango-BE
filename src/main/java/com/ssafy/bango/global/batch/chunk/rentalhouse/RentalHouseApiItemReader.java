@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.chunk;
+package com.ssafy.bango.global.batch.chunk.rentalhouse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 @StepScope
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class OpenApiItemReader implements ItemReader<List<RentalHouseApiResponse>> {
+public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiResponse>> {
     private final String openApiUrl;
     private final String openApiServiceKey;
 

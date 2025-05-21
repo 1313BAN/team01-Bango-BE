@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.chunk;
+package com.ssafy.bango.global.batch.chunk.rentalhouse;
 
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class OpenApiItemWriter implements ItemWriter<List<RentalHouse>> {
+public class RentalHouseApiItemWriter implements ItemWriter<List<RentalHouse>> {
     private final RentalHouseRepository rentalHouseRepository;
 
     @Override
