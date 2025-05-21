@@ -8,12 +8,13 @@ public class AuthWhiteList {
     public static final List<String> AUTH_WHITELIST_DEFAULT = Arrays.asList(
             "/api/v1/member/login", "/api/v1/member/token",
             "/api/v1/rental",
+            "/api/v1/notice",
             "/error", "/health"
     );
 
     public static final List<String> AUTH_WHITELIST_WILDCARD = Arrays.asList(
-        "/api/v1/rental/**",
-        "/api/v1/rental/api/**"
+            "/api/v1/rental/**",
+            "/api/v1/rental/api/**"
     );
 
     public static final String[] AUTH_WHITELIST = Stream.concat(
