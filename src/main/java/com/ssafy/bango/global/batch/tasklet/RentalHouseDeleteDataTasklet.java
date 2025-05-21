@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DeleteDataTasklet implements Tasklet {
+public class RentalHouseDeleteDataTasklet implements Tasklet {
     private final RentalHouseService rentalHouseService;
 
     @Override

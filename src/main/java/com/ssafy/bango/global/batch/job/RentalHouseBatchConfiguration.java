@@ -9,7 +9,7 @@ import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemProcesso
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemReader;
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemWriter;
 import com.ssafy.bango.global.batch.dto.RentalHouseApiResponse;
-import com.ssafy.bango.global.batch.tasklet.DeleteDataTasklet;
+import com.ssafy.bango.global.batch.tasklet.RentalHouseDeleteDataTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -37,7 +37,7 @@ public class RentalHouseBatchConfiguration {
     private final PlatformTransactionManager transactionManager;
     private final CustomStepExecutionListener customStepExecutionListener;
 
-    private final DeleteDataTasklet deleteDataTasklet;
+    private final RentalHouseDeleteDataTasklet rentalHouseDeleteDataTasklet;
     private final KakaoGeocodingService kakaoGeocodingService;
     private final RentalHouseRepository rentalHouseRepository;
 
@@ -55,7 +55,7 @@ public class RentalHouseBatchConfiguration {
     @Bean
     public Step deleteDataStep() {
         return new StepBuilder("deleteDataStep", jobRepository)
-                .tasklet(deleteDataTasklet, transactionManager)
+                .tasklet(rentalHouseDeleteDataTasklet, transactionManager)
                 .build();
     }
 
