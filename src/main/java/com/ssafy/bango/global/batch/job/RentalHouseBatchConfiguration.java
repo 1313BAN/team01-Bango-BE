@@ -32,7 +32,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 @EnableBatchProcessing
-public class BatchConfiguration {
+public class RentalHouseBatchConfiguration {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final CustomStepExecutionListener customStepExecutionListener;
