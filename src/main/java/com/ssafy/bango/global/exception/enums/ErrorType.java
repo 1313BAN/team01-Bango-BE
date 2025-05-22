@@ -45,6 +45,7 @@ public enum ErrorType {
     NOT_FOUND_MEMBER_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
     NOT_FOUND_REFRESH_TOKEN_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 리프레시 토큰입니다."),
     NOT_FOUND_FAVORITE_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 즐겨찾기입니다."),
+    NOT_FOUND_NOTICE_ERROR(HttpStatus.NOT_FOUND,"존재하지 않는 임대주택 공고입니다."),
 
     /**
      * 409 CONFLICT

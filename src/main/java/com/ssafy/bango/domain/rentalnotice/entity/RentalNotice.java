@@ -1,6 +1,7 @@
 package com.ssafy.bango.domain.rentalnotice.entity;
 
-import com.ssafy.bango.domain.noticelikes.entity.NoticeLike;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.bango.domain.noticelike.entity.NoticeLike;
 import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -72,6 +73,7 @@ public class RentalNotice extends BaseTimeEntity {
   // 주택 공고 동기화 시점
   private LocalDateTime lastSyncedAt;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "rentalNotice", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<NoticeLike> likes;
 }

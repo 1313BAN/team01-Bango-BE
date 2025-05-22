@@ -1,9 +1,12 @@
 package com.ssafy.bango.domain.rentalnotice.service;
 
-import com.ssafy.bango.domain.rentalnotice.dto.NoticeListResponse;
+import com.ssafy.bango.domain.noticelike.repository.NoticeLikeRepository;
+import com.ssafy.bango.domain.rentalnotice.dto.NoticeListResponseWithLiked;
+import com.ssafy.bango.domain.rentalnotice.dto.NoticeWithLiked;
 import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
 import com.ssafy.bango.domain.rentalnotice.feign.RentalNoticeApiService;
 import com.ssafy.bango.domain.rentalnotice.repository.RentalNoticeRepository;
+import com.ssafy.bango.global.auth.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,22 +14,48 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class RentalNoticeService {
     private final RentalNoticeRepository rentalNoticeRepository;
+    private final NoticeLikeRepository noticeLikeRepository;
+
     private final RentalNoticeApiService rentalNoticeApiService;
 
-    public NoticeListResponse getRentalNoticeList(int pageNo, int pageSize) {
+
+    public NoticeListResponseWithLiked getNoticeListWithLiked(int pageNo, int pageSize, Principal principal) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-        Page<RentalNotice> rentalNoticeList = rentalNoticeRepository.findAll(pageable);
-        return NoticeListResponse.of(
+
+        // 와 이거 너무 맘에 안들어요
+
+
+        long memberId;
+        Set<Integer> noticeLikeSet;
+        if (!isNull(principal)) {
+            memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+            noticeLikeSet = new HashSet<>(noticeLikeRepository.findLikedNoticeIdsByMemberId(memberId));
+        } else noticeLikeSet = new HashSet<>();
+
+
+        Page<RentalNotice> noticeList = rentalNoticeRepository.findAll(pageable);
+
+        List<NoticeWithLiked> result = noticeList.stream()
+                .map(notice -> NoticeWithLiked.of(notice, noticeLikeSet.contains(notice.getNoticeId())))
+                .toList();
+
+
+        return NoticeListResponseWithLiked.of(
                 pageNo,
-                rentalNoticeList.getNumberOfElements(),
-                rentalNoticeList.toList()
+                noticeList.getNumberOfElements(),
+                result
         );
     }
 
@@ -42,5 +71,4 @@ public class RentalNoticeService {
 
         rentalNoticeRepository.saveAll(noticeList);
     }
-
 }
