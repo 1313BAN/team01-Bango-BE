@@ -36,7 +36,7 @@ public class NoticeLikeController implements NoticeLikeApi {
                 .body(ApiResponse.success(DELETE_LIKED_NOTICE_SUCCESS));
     }
 
-    @GetMapping("/like")
+    @GetMapping("/liked")
     public ResponseEntity<ApiResponse<LikedNoticeResponse>> getLikedNoticeList(Principal principal) {
 
         return ResponseEntity.ok(ApiResponse.success(
