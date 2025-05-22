@@ -9,6 +9,7 @@ import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemProcesso
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemReader;
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemWriter;
 import com.ssafy.bango.global.batch.dto.RentalHouseApiResponse;
+import com.ssafy.bango.global.batch.job.listener.CustomStepExecutionListener;
 import com.ssafy.bango.global.batch.tasklet.RentalHouseDeleteDataTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.job;
+package com.ssafy.bango.global.batch.job.listener;
 
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
