@@ -8,7 +8,7 @@ import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemProcessor;
 import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemReader;
 import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemWriter;
-import com.ssafy.bango.global.batch.job.CustomStepExecutionListener;
+import com.ssafy.bango.global.batch.job.listener.CustomStepExecutionListener;
 import com.ssafy.bango.global.batch.tasklet.FacilityDeleteDataTasklet;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

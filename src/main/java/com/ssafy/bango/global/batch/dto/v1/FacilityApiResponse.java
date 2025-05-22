@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.dto;
+package com.ssafy.bango.global.batch.dto.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

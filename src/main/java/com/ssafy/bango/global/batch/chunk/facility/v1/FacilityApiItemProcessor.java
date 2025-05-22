@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bango.domain.rentalhouse.entity.Facility;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.entity.enums.FacilityType;
-import com.ssafy.bango.global.batch.dto.FacilityApiResponse;
+import com.ssafy.bango.global.batch.dto.v1.FacilityApiResponse;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
