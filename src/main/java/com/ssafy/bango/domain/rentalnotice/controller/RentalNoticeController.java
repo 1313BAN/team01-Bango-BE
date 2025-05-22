@@ -5,7 +5,12 @@ import com.ssafy.bango.domain.rentalnotice.service.RentalNoticeService;
 import com.ssafy.bango.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALNOTICE_LIST_SUCCESS;
 
@@ -20,26 +25,20 @@ public class RentalNoticeController implements RentalNoticeApi {
         rentalNoticeService.dumpRentalNoticeTable();
     }
 
-//    @GetMapping
-//    public ResponseEntity<ApiResponse<NoticeListResponse>> getRentalNoticeList(
-//            @RequestParam(defaultValue = "1") int pageNo,
-//            @RequestParam(defaultValue = "10") int pageSize
-//    ) {
-//        return ResponseEntity.ok(ApiResponse.success(
-//                GET_RENTALNOTICE_LIST_SUCCESS,
-//                rentalNoticeService.getRentalNoticeList(pageNo, pageSize)
-//        ));
-//    }
 
-    @GetMapping("/v2")
+    /**
+     * 로그인된 경우 "/like"
+     * 로그인 되지 않은 경우 ""
+     */
+    @GetMapping(value = {"", "/like"})
     public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalListWithLike(
             @RequestParam(defaultValue = "1") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize,
-            @RequestHeader(value = "Authorization", required = false) String accessToken
+            Principal principal
     ) {
         return ResponseEntity.ok(ApiResponse.success(
                 GET_RENTALNOTICE_LIST_SUCCESS,
-                rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, accessToken)
+                rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)
         ));
     }
 }

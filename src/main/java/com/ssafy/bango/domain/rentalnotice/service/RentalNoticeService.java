@@ -8,19 +8,19 @@ import com.ssafy.bango.domain.rentalnotice.feign.RentalNoticeApiService;
 import com.ssafy.bango.domain.rentalnotice.repository.RentalNoticeRepository;
 import com.ssafy.bango.global.auth.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Slf4j
+import static java.util.Objects.isNull;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -28,40 +28,24 @@ public class RentalNoticeService {
     private final RentalNoticeRepository rentalNoticeRepository;
     private final NoticeLikeRepository noticeLikeRepository;
 
-    private final JwtProvider jwtProvider;
-
     private final RentalNoticeApiService rentalNoticeApiService;
 
-//    public NoticeListResponse getRentalNoticeList(int pageNo, int pageSize) {
-//        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-//        Page<RentalNotice> rentalNoticeList = rentalNoticeRepository.findAll(pageable);
-//        return NoticeListResponse.of(
-//                pageNo,
-//                rentalNoticeList.getNumberOfElements(),
-//                rentalNoticeList.toList()
-//        );
-//    }
 
-    public NoticeListResponseWithLiked getNoticeListWithLiked(int pageNo, int pageSize, String accessToken) {
+    public NoticeListResponseWithLiked getNoticeListWithLiked(int pageNo, int pageSize, Principal principal) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
         // 와 이거 너무 맘에 안들어요
-        if (StringUtils.hasText(accessToken) && accessToken.startsWith("Bearer ")) {
-            accessToken =  accessToken.substring("Bearer ".length());
-        }
+
 
         long memberId;
-//        log.warn("AccessToken : {}", accessToken);
-        try {
-            memberId = jwtProvider.getMemberIdFromJwt(accessToken);
-        } catch (Exception e) {
-            memberId = -1L;
-        }
+        Set<Integer> noticeLikeSet;
+        if (!isNull(principal)) {
+            memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+            noticeLikeSet = new HashSet<>(noticeLikeRepository.findLikedNoticeIdsByMemberId(memberId));
+        } else noticeLikeSet = new HashSet<>();
+
 
         Page<RentalNotice> noticeList = rentalNoticeRepository.findAll(pageable);
-        Set<Integer> noticeLikeSet = new HashSet<>(noticeLikeRepository.findLikedNoticeIdsByMemberId(memberId));
-
-//        log.warn("member: {} / set: {} ",memberId, noticeLikeSet);
 
         List<NoticeWithLiked> result = noticeList.stream()
                 .map(notice -> NoticeWithLiked.of(notice, noticeLikeSet.contains(notice.getNoticeId())))
