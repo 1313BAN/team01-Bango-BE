@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.chunk.facility;
+package com.ssafy.bango.global.batch.chunk.facility.v1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

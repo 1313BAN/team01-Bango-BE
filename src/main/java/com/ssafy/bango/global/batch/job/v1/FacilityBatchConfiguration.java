@@ -1,13 +1,14 @@
-package com.ssafy.bango.global.batch.job;
+package com.ssafy.bango.global.batch.job.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bango.domain.rentalhouse.entity.Facility;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.repository.FacilityRepository;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
-import com.ssafy.bango.global.batch.chunk.facility.FacilityApiItemProcessor;
-import com.ssafy.bango.global.batch.chunk.facility.FacilityApiItemReader;
-import com.ssafy.bango.global.batch.chunk.facility.FacilityApiItemWriter;
+import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemProcessor;
+import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemReader;
+import com.ssafy.bango.global.batch.chunk.facility.v1.FacilityApiItemWriter;
+import com.ssafy.bango.global.batch.job.CustomStepExecutionListener;
 import com.ssafy.bango.global.batch.tasklet.FacilityDeleteDataTasklet;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.chunk.facility;
+package com.ssafy.bango.global.batch.chunk.facility.v1;
 
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
