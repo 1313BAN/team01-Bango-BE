@@ -41,26 +41,23 @@ public class RentalHouseBatchConfiguration {
     private final KakaoGeocodingService kakaoGeocodingService;
     private final RentalHouseRepository rentalHouseRepository;
 
-    @Bean
-    public Job openApiJob(
-            Step deleteDataStep,
-            Step openApiStep
-    ) {
-        return new JobBuilder("openApiJob", jobRepository)
-                .start(deleteDataStep)
-                .next(openApiStep)
+    @Bean(name = "rentalHouseJob")
+    public Job rentalHouseJob(Step deleteRentalHouseStep, Step openRentalHouseApiStep) {
+        return new JobBuilder("rentalHouseJob", jobRepository)
+                .start(deleteRentalHouseStep)
+                .next(openRentalHouseApiStep)
                 .build();
     }
 
-    @Bean
+    @Bean(name = "deleteRentalHouseStep")
     public Step deleteDataStep() {
         return new StepBuilder("deleteDataStep", jobRepository)
                 .tasklet(rentalHouseDeleteDataTasklet, transactionManager)
                 .build();
     }
 
-    @Bean
-    public Step openApiStep(
+    @Bean(name = "openRentalHouseApiStep")
+    public Step openRentalHouseApiStep(
             ItemReader<List<RentalHouseApiResponse>> openApiItemReader,
             ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> openApiItemProcessor,
             ItemWriter<List<RentalHouse>> openApiItemWriter
@@ -74,7 +71,7 @@ public class RentalHouseBatchConfiguration {
                 .build();
     }
 
-    @Bean
+    @Bean(name = "rentalHouseOpenApiItemReader")
     @StepScope
     public ItemReader<List<RentalHouseApiResponse>> openApiItemReader(
             @Value("${open.api.rentalHouse.url}") String openApiUrl,
@@ -89,13 +86,13 @@ public class RentalHouseBatchConfiguration {
         );
     }
 
-    @Bean
+    @Bean(name = "rentalHouseOpenApiItemProcessor")
     @StepScope
     public ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> openApiItemProcessor() {
         return new RentalHouseApiItemProcessor(kakaoGeocodingService);
     }
 
-    @Bean
+    @Bean(name = "rentalHouseOpenApiItemWriter")
     public ItemWriter<List<RentalHouse>> openApiItemWriter() {
         return new RentalHouseApiItemWriter(rentalHouseRepository);
     }
