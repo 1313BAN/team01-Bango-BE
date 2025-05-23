@@ -1,4 +1,4 @@
-package com.ssafy.bango.domain.rentalhouse.dto.response;
+package com.ssafy.bango.global.batch.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,7 @@ public class RentalHouseApiResponse {
     private Double suplyPrvuseAr;
     private Double suplyCmnuseAr;
     private String houseTyNm;
+    private String buldStleNm;
     private String elvtrInstlAtNm;
     private Integer parkngCo;
     private Integer bassRentGtn;

@@ -19,6 +19,10 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
 
+  batch:
+    jdbc:
+      initialize-schema: always
+
   ai:
     openai:
       api-key: ${AI_API_KEY}
@@ -101,3 +105,11 @@ oauth:
 kakao:
   api:
     key: ${KAKAO_MAP_API_KEY}
+
+open:
+  api:
+    rentalHouse:
+      url: ${RENTAL_HOUSE_API_URL}
+      key: ${RENTAL_HOUSE_API_KEY}
+      brtcCode: 11        # 서울특별시
+      numOfRows: 5000

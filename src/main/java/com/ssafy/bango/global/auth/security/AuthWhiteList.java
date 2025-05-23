@@ -9,6 +9,7 @@ public class AuthWhiteList {
             "/api/v1/member/login", "/api/v1/member/token",
             "/api/v1/rental",
             "/api/v1/notice",
+            "/batch-rentalhouse-job", "/batch-facility-job",
             "/error", "/health"
     );
 

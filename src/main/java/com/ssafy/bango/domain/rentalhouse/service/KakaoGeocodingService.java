@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bango.domain.rentalhouse.dto.response.GeoPointResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,12 +34,41 @@ public class KakaoGeocodingService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public Optional<GeoPointResponse> getGeoFromAddress(String address) {
+    /**
+     * PNU를 캐시 키로 사용.
+     * 같은 PNU로 요청하면 캐시에서 반환하고, 없으면 실제 API 호출.
+     */
+    @Cacheable(
+            value = "geoCache",
+            key = "#pnu",
+            unless = "#result.isEmpty()"
+    )
+    public Optional<GeoPointResponse> getGeoFromAddress(String pnu, String address) {
+        log.info(">>> [GEOCODE] cache miss for pnu={}, calling Kakao API", pnu);
         String url = buildUrl(address);
         HttpEntity<?> entity = buildHttpEntity();
 
         try {
+            ResponseEntity<String> resp = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            return parseCoordinates(resp.getBody());
+        } catch (Exception ex) {
+            log.error("Error fetching geo for pnu={}, address={}", pnu, address, ex);
+            return Optional.empty();
+        }
+    }
+
+    public Optional<GeoPointResponse> getGeoFromAddress(String address) {
+        String url = buildUrl(address);
+        HttpEntity<?> entity = buildHttpEntity();
+
+        log.info(">>> start getGeoFromAddress");
+        long start = System.currentTimeMillis();
+
+        try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            long end = System.currentTimeMillis();
+
+            System.out.println(">>> end getGeoFromAddress: " + (end - start) + " ms");
             return parseCoordinates(response.getBody());
         } catch (Exception e) {
             log.error("Error occurred while fetching geocode for address: {}", address, e);
