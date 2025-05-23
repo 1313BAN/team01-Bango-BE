@@ -40,7 +40,7 @@ public class MemberController implements MemberApi {
         ));
     }
 
-    @GetMapping("/token")
+    @PostMapping("/token")
     public ResponseEntity<ApiResponse<String>> getAccessToken(@Valid @RequestBody GetAccessTokenRequest getAccessTokenRequest) {
 
         return ResponseEntity.ok(memberService.getSocialAccessToken(getAccessTokenRequest));
