@@ -3,6 +3,7 @@ package com.ssafy.bango.domain.ai.controller;
 import com.ssafy.bango.domain.ai.service.AiChatService;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.service.RentalHouseService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/ai")
-public class AiController {
+public class AiController implements AiApi {
     private final AiChatService aiChatService;
     private final RentalHouseService rentalHouseService;
 

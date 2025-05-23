@@ -11,20 +11,36 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
     @Bean
     GroupedOpenApi memberOpenApi() {
-        String[] paths = { "/api/member/**", "/api/auth/**" };
-        return GroupedOpenApi.builder().group("Member 관련 API").pathsToMatch(paths).build();
+        String[] paths = { "/api/v1/member"};
+        return GroupedOpenApi.builder().
+            group("멤버 관련 API")
+            .pathsToMatch(paths)
+            .build();
     }
 
     @Bean
-    GroupedOpenApi houseDealOpenApi() {
-        String[] paths = { "/api/house/**" };
-        return GroupedOpenApi.builder().group("거래 조회 관련 API").pathsToMatch(paths).build();
+    GroupedOpenApi rentalHouseOpenApi() {
+        String[] paths = { "/api/v1/rental/**" };
+        return GroupedOpenApi.builder()
+            .group("임대 주택 관련 API")
+            .pathsToMatch(paths)
+            .build();
     }
 
     @Bean
-    GroupedOpenApi dongCodeOpenApi() {
-        String[] paths = { "/api/dongcode/**" };
-        return GroupedOpenApi.builder().group("주소 관련 API").pathsToMatch(paths).build();
+    GroupedOpenApi rentalNoticeOpenApi() {
+        String[] paths = { "/api/v1/notice/**" };
+        return GroupedOpenApi.builder()
+            .group("임대 주택 공고 관련 API")
+            .pathsToMatch(paths)
+            .build();
     }
 
+    @Bean
+    GroupedOpenApi allApi() {
+        return GroupedOpenApi.builder()
+            .group("전체 API")
+            .pathsToMatch("/api/v1/**")
+            .build();
+    }
 }

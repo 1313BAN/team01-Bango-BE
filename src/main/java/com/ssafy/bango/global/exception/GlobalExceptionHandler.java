@@ -4,6 +4,7 @@ import static com.ssafy.bango.global.exception.enums.ErrorType.INVALID_TYPE_ERRO
 
 import com.ssafy.bango.global.common.ApiResponse;
 import com.ssafy.bango.global.exception.enums.ErrorType;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.UnexpectedTypeException;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import java.util.Map;
 import static com.ssafy.bango.global.exception.enums.ErrorType.*;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
+@Hidden
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
