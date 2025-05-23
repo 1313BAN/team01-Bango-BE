@@ -47,7 +47,7 @@ public class MemberService {
                 new UserAuthentication(loginMember.getMemberId(), null, null)
         );
 
-        return TokenResponse.of(loginMember.getMemberId(), tokenDTO);
+        return TokenResponse.of(MemberInfoResponse.from(loginMember), tokenDTO);
     }
 
     /**
@@ -100,11 +100,11 @@ public class MemberService {
     public TokenResponse reissueToken(ReissueRequest reissueRequest) {
         Long memberId = jwtProvider.validateRefreshToken(reissueRequest.refreshToken());
 
-        memberRepository.getMemberByMemberId(memberId)
+        Member member = memberRepository.getMemberByMemberId(memberId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
 
         jwtProvider.deleteRefreshToken(memberId);
 
-        return TokenResponse.of(memberId, jwtProvider.issueToken(new UserAuthentication(memberId, null, null)));
+        return TokenResponse.of(MemberInfoResponse.from(member), jwtProvider.issueToken(new UserAuthentication(memberId, null, null)));
     }
 }
