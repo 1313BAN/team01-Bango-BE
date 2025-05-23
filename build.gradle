@@ -23,12 +23,17 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springAiVersion', "1.0.0")
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.2.1'
 
@@ -58,6 +63,12 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testImplementation 'org.mockito:mockito-core'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+	}
 }
 
 test {
