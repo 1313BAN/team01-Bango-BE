@@ -33,7 +33,7 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
     private static final int RADIUS = 8000;
 
     @Override
-    public List<Facility> process(RentalHouse rentalHouse) throws Exception {
+    public List<Facility> process(RentalHouse rentalHouse) {
         List<Facility> facilities = new ArrayList<>();
         HttpEntity<?> entity = buildHttpEntity();
 
@@ -62,7 +62,7 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
 
     private ResponseEntity<String> fetchFacility(HttpEntity<?> entity, RentalHouse rentalHouse, FacilityType type) throws URISyntaxException, MalformedURLException {
         URL url = buildUrl(type.getDescription(), rentalHouse.getLongitude(), rentalHouse.getLatitude());
-        ResponseEntity<String> response = restTemplate.exchange(url.toURI(), HttpMethod.GET,entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(url.toURI(), HttpMethod.GET, entity, String.class);
         log.debug("API 호출 성공: type={}, status={}", type.getDescription(), response.getStatusCode());
         return response;
     }
@@ -92,7 +92,7 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
             int distance = Integer.parseInt(closest.getDistance());
 
             log.info("가장 가까운 시설명: {}", closest.getPlaceName());
-            log.info("거리: {}", closest.getDistance() + "m");
+            log.info("거리: {}m", closest.getDistance());
             return Facility.builder()
                 .rentalHouse(rentalHouse)
                 .type(type)
