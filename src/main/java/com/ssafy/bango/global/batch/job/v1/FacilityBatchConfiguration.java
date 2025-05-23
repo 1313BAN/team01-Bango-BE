@@ -30,8 +30,10 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableBatchProcessing
 public class FacilityBatchConfiguration {
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final CustomStepExecutionListener customStepExecutionListener;
@@ -82,8 +84,8 @@ public class FacilityBatchConfiguration {
         @Value("${open.api.facility.url}") String openApiUrl,
         @Value("${open.api.facility.key}") String openApiServiceKey) {
         return new FacilityApiItemProcessor(
-            new RestTemplate(),
-            new ObjectMapper(),
+            restTemplate,
+            objectMapper,
             openApiUrl,
             openApiServiceKey
         );

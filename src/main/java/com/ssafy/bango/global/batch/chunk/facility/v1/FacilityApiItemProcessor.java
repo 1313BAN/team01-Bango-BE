@@ -91,8 +91,8 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
             FacilityApiResponse.Document closest = docs.get(0);
             int distance = Integer.parseInt(closest.getDistance());
 
-            log.info("가장 가까운 시설명: " + closest.getPlaceName());
-            log.info("거리: " + closest.getDistance() + "m");
+            log.info("가장 가까운 시설명: {}", closest.getPlaceName());
+            log.info("거리: {}", closest.getDistance() + "m");
             return Facility.builder()
                 .rentalHouse(rentalHouse)
                 .type(type)
