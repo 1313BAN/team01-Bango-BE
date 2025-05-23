@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface KakaoApiClient {
     // AccessToken을 이용하여 유저 정보 가져오기
     @GetMapping("/v2/user/me")
-    KakaoUserResponse getUserInfomation(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken);
+    KakaoUserResponse getUserInformation(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken);
 }

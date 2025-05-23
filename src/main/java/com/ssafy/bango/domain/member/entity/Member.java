@@ -1,6 +1,7 @@
 package com.ssafy.bango.domain.member.entity;
 
-import com.ssafy.bango.domain.noticelikes.entity.NoticeLike;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.bango.domain.noticelike.entity.NoticeLike;
 import com.ssafy.bango.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class Member extends BaseTimeEntity {
 //    @Column(length = 45)
 //    private String role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NoticeLike> likes;
 

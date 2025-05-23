@@ -40,14 +40,14 @@ public class KakaoLoginService implements SocialLoginService {
     }
 
     public String getSocialId(String socialAccessToken) {
-        KakaoUserResponse userResponse = kakaoApiClient.getUserInfomation("Bearer " + socialAccessToken);
+        KakaoUserResponse userResponse = kakaoApiClient.getUserInformation("Bearer " + socialAccessToken);
 
         return Long.toString(userResponse.getId());
     }
 
     public void setSocialInfo(Member loginMember, String socialAccessToken) {
         // Access Token으로 유저 정보 불러와서 설정
-        KakaoUserResponse kakaoUser = kakaoApiClient.getUserInfomation("Bearer " + socialAccessToken);
+        KakaoUserResponse kakaoUser = kakaoApiClient.getUserInformation("Bearer " + socialAccessToken);
 
         loginMember.setMemberInfo(
                 kakaoUser.getKakaoAccount().getProfile().getNickname(),

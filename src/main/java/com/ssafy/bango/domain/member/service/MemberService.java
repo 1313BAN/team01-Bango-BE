@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.member.service;
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
 import com.ssafy.bango.domain.member.dto.request.LoginRequest;
+import com.ssafy.bango.domain.member.dto.request.ReissueRequest;
 import com.ssafy.bango.domain.member.dto.response.MemberInfoResponse;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.domain.member.repository.MemberRepository;
@@ -12,6 +13,8 @@ import com.ssafy.bango.global.auth.jwt.TokenDTO;
 import com.ssafy.bango.global.auth.security.UserAuthentication;
 import com.ssafy.bango.global.auth.service.OAuthService;
 import com.ssafy.bango.global.common.ApiResponse;
+import com.ssafy.bango.global.exception.CustomException;
+import com.ssafy.bango.global.exception.enums.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,17 +74,37 @@ public class MemberService {
 
     @Transactional
     public void logout(Principal principal) {
-        jwtProvider.deleteRefreshToken(jwtProvider.getMemberIdFromPrincipal(principal));
+        jwtProvider.deleteRefreshToken(JwtProvider.getMemberIdFromPrincipal(principal));
     }
 
     public MemberInfoResponse me(Principal principal) {
-        Long memberId = jwtProvider.getMemberIdFromPrincipal(principal);
-        Member member = memberRepository.getMemberByMemberId(memberId);
+        Long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+        Member member = memberRepository.getMemberByMemberId(memberId)
+                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
 
         return MemberInfoResponse.of(
                 member.getName(),
                 member.getEmail(),
                 member.getSocialPlatform()
         );
+    }
+
+    @Transactional
+    public void withdraw(Principal principal) {
+        Long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+        memberRepository.deleteById(memberId);
+        jwtProvider.deleteRefreshToken(memberId);
+    }
+
+    @Transactional
+    public TokenResponse reissueToken(ReissueRequest reissueRequest) {
+        Long memberId = jwtProvider.validateRefreshToken(reissueRequest.refreshToken());
+
+        memberRepository.getMemberByMemberId(memberId)
+                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
+
+        jwtProvider.deleteRefreshToken(memberId);
+
+        return TokenResponse.of(memberId, jwtProvider.issueToken(new UserAuthentication(memberId, null, null)));
     }
 }

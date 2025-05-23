@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.member.controller;
 
 import com.ssafy.bango.domain.member.dto.request.GetAccessTokenRequest;
 import com.ssafy.bango.domain.member.dto.request.LoginRequest;
+import com.ssafy.bango.domain.member.dto.request.ReissueRequest;
 import com.ssafy.bango.domain.member.dto.response.MemberInfoResponse;
 import com.ssafy.bango.domain.member.dto.response.TokenResponse;
 import com.ssafy.bango.global.common.ApiResponse;
@@ -16,5 +17,9 @@ public interface MemberApi {
 
     ResponseEntity<ApiResponse<MemberInfoResponse>> me(Principal principal);
 
+    ResponseEntity<ApiResponse<?>> withdraw(Principal principal);
+
     ResponseEntity<ApiResponse<String>> getAccessToken(GetAccessTokenRequest getAccessTokenRequest);
+
+    ResponseEntity<ApiResponse<TokenResponse>> reissueToken(ReissueRequest reissueRequest);
 }
