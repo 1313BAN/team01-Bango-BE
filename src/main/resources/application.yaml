@@ -22,6 +22,8 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      enabled: false
 
   ai:
     openai:
@@ -113,3 +115,6 @@ open:
       key: ${RENTAL_HOUSE_API_KEY}
       brtcCode: 11        # 서울특별시
       numOfRows: 5000
+    facility:
+      url: ${FACILITY_API_URL}
+      key: ${FACILITY_API_KEY}
