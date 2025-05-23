@@ -17,7 +17,7 @@ public class AiController {
     private final RentalHouseService rentalHouseService;
 
     @GetMapping("/rental/{houseId}/facilities")
-    public Object getGeoInfo(@PathVariable int houseId) {
+    public Object getFacilityInfo(@PathVariable int houseId) {
         RentalHouse house = rentalHouseService.getRentalHouseByHouseId(houseId);
         return aiChatService.facilityChat(house.getAddress());
     }
