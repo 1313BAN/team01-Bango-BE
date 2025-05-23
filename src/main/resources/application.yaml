@@ -30,7 +30,7 @@ spring:
       api-key: ${AI_API_KEY}
     chat:
       options:
-        model: o4-mini   # 사용할 OpenAI chat model의 이름
+        model: gpt-4o   # 사용할 OpenAI chat model의 이름
         temperature: 0.7 # 창의성을 제어하는데 사용되는 샘플링 온도
         maxCompletionTokens: 1000 # 출력과 추론에 사용되는 토큰 수의 상한선
 
