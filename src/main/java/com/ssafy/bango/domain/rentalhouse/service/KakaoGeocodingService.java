@@ -41,7 +41,7 @@ public class KakaoGeocodingService {
     @Cacheable(
             value = "geoCache",
             key = "#pnu",
-            unless = "#result.isEmpty()"
+            unless = "#result == null"
     )
     public Optional<GeoPointResponse> getGeoFromAddress(String pnu, String address) {
         log.info(">>> [GEOCODE] cache miss for pnu={}, calling Kakao API", pnu);
