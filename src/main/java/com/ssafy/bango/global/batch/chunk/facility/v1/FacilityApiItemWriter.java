@@ -18,8 +18,15 @@ public class FacilityApiItemWriter implements ItemWriter<List<Facility>> {
     public void write(Chunk<? extends List<Facility>> items) {
         log.info(">>> write called");
         for (List<Facility> facilities : items) {
-            log.info(">>>> write save facilities");
-            facilityRepository.saveAllAndFlush(facilities);
+            if (!facilities.isEmpty()) {
+                try {
+                    facilityRepository.saveAllAndFlush(facilities);
+                    log.info("시설 정보 {} 건 저장 완료", facilities.size());
+                } catch (Exception e) {
+                    log.error("시설 정보 저장 중 오류 발생: {} 건", facilities.size(), e);
+                    throw e; // Spring Batch가 처리할 수 있도록 예외를 다시 던짐
+                }
+            }
         }
     }
 }

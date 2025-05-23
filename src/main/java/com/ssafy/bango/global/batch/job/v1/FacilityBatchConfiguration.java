@@ -49,8 +49,8 @@ public class FacilityBatchConfiguration {
     }
 
     @Bean(name = "deleteFacilityStep")
-    public Step deleteDataStep() {
-        return new StepBuilder("deleteDataStep", jobRepository)
+    public Step deleteFacilityDataStep() {
+        return new StepBuilder("deleteFacilityDataStep", jobRepository)
                 .tasklet(facilityDeleteDataTasklet, transactionManager)
                 .build();
     }
@@ -61,7 +61,7 @@ public class FacilityBatchConfiguration {
         ItemProcessor<RentalHouse, List<Facility>> openApiItemProcessor,
         ItemWriter<List<Facility>> openApiItemWriter
     ) {
-        return new StepBuilder("openApiStep", jobRepository)
+        return new StepBuilder("openFacilityApiStep", jobRepository)
             .<RentalHouse, List<Facility>>chunk(10, transactionManager)
             .reader(openApiItemReader)
             .processor(openApiItemProcessor)

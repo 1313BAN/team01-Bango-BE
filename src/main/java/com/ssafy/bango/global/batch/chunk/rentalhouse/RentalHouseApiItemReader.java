@@ -17,6 +17,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -40,10 +41,16 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
     private final RentalHouseEnums.SignguCode[] codes;
     private int index = 0;
 
+    @Value("${open.api.rentalHouse.brtcCode:11}")
+    private int brtcCode;
+
+    @Value("${open.api.rentalHouse.numOfRows:1000}")
+    private int numOfRows;
+
+
     @Override
     public List<RentalHouseApiResponse> read()
         throws UnexpectedInputException, ParseException, NonTransientResourceException, IOException, URISyntaxException {
-
         log.info(">>> reader called");
         return requestOpenApi();
     }
@@ -53,13 +60,13 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
             return null;
         }
         String signguCode = codes[index++].getCode();
-
         URL url = buildUrl(signguCode);
         HttpEntity<?> entity = buildHttpEntity();
 
         ResponseEntity<String> response = restTemplate.exchange(url.toURI(), HttpMethod.GET, entity, String.class);
+        String responseBody = response.getBody();
         log.info("API StatusCode: {}", response.getStatusCode());
-        log.info("API Response: {}", response.getBody());
+        log.info("API Response: {}", responseBody != null && responseBody.length() > 500 ? responseBody.substring(0, 500) + "..." : responseBody);
 
         if (response.getStatusCode().is2xxSuccessful()) {
             String jsonString = response.getBody();
@@ -72,9 +79,9 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
     private URL buildUrl(String signguCode) throws MalformedURLException {
         String url = UriComponentsBuilder.fromUriString(openApiUrl)
                 .queryParam("serviceKey", openApiServiceKey)
-                .queryParam("brtcCode", 11)
+                .queryParam("brtcCode", brtcCode)
                 .queryParam("signguCode", signguCode)
-                .queryParam("numOfRows", 5000)
+                .queryParam("numOfRows", numOfRows)
                 .queryParam("pageNo", 1)
                 .build()
                 .toUriString();
@@ -89,7 +96,6 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
 
     private List<RentalHouseApiResponse> parseResponse(String responseBody) throws JsonProcessingException {
         List<RentalHouseApiResponse> rentalHouseResponseList = new ArrayList<>();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // Java 클래스에 정의되어 있지 않은 필드가 있어도 무시
 
         JsonNode root = objectMapper.readTree(responseBody);
         JsonNode itemListNode = root
@@ -99,7 +105,7 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
         for (JsonNode node : itemListNode) {
             rentalHouseResponseList.add(objectMapper.treeToValue(node, RentalHouseApiResponse.class));
         }
-        log.info("rentalHouseResponseList: {}", rentalHouseResponseList.toString());
+        log.info("Parsed {} rental house items", rentalHouseResponseList.size());
         return rentalHouseResponseList;
     }
 }

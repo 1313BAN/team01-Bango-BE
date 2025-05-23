@@ -14,7 +14,6 @@ import com.ssafy.bango.global.batch.tasklet.RentalHouseDeleteDataTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
@@ -32,8 +31,10 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableBatchProcessing
 public class RentalHouseBatchConfiguration {
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final CustomStepExecutionListener customStepExecutionListener;
@@ -51,8 +52,8 @@ public class RentalHouseBatchConfiguration {
     }
 
     @Bean(name = "deleteRentalHouseStep")
-    public Step deleteDataStep() {
-        return new StepBuilder("deleteDataStep", jobRepository)
+    public Step deleteRentalHouseStep() {
+        return new StepBuilder("deleteRentalHouseStep", jobRepository)
                 .tasklet(rentalHouseDeleteDataTasklet, transactionManager)
                 .build();
     }
@@ -63,7 +64,7 @@ public class RentalHouseBatchConfiguration {
             ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> openApiItemProcessor,
             ItemWriter<List<RentalHouse>> openApiItemWriter
     ) {
-        return new StepBuilder("openApiStep", jobRepository)
+        return new StepBuilder("openRentalHouseApiStep", jobRepository)
                 .<List<RentalHouseApiResponse>, List<RentalHouse>>chunk(1, transactionManager)
                 .reader(openApiItemReader)
                 .processor(openApiItemProcessor)
@@ -81,8 +82,8 @@ public class RentalHouseBatchConfiguration {
         return new RentalHouseApiItemReader(
                 openApiUrl,
                 openApiServiceKey,
-                new RestTemplate(),
-                new ObjectMapper(),
+                restTemplate,
+                objectMapper,
                 RentalHouseEnums.SignguCode.values()
         );
     }

@@ -45,14 +45,4 @@ public class RentalHouseService {
         return rentalHouseRepository.findByHouseId(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
     }
-
-    @Transactional
-    public void saveAll(List<RentalHouse> rentalHouseList) {
-        rentalHouseRepository.saveAll(rentalHouseList);
-    }
-
-    @Transactional
-    public void deleteAll() {
-        rentalHouseRepository.deleteAll();
-    }
 }

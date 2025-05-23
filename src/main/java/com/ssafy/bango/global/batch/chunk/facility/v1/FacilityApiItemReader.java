@@ -19,7 +19,7 @@ public class FacilityApiItemReader implements ItemReader<RentalHouse> {
 
     @PostConstruct
     public void init() {
-        rentalHouseList = rentalHouseRepository.findAll();
+        rentalHouseList = rentalHouseRepository.findByLatitudeIsNotNullAndLongitudeIsNotNull();
         log.info("총 {}건의 매물을 불러왔습니다.", rentalHouseList.size());
     }
 
@@ -28,9 +28,6 @@ public class FacilityApiItemReader implements ItemReader<RentalHouse> {
         while (nextIndex < rentalHouseList.size()) {
             RentalHouse rentalHouse = rentalHouseList.get(nextIndex);
             nextIndex++;
-            if (rentalHouse.getLatitude() == null || rentalHouse.getLongitude() == null) {
-                continue;
-            }
             return rentalHouse;
         }
         return null; // 모든 데이터를 다 읽었을 때

@@ -19,8 +19,15 @@ public class RentalHouseApiItemWriter implements ItemWriter<List<RentalHouse>> {
         log.info(">>> write called");
 
         for (List<RentalHouse> rentalHouses : chunk) {
-            log.info(">>>> write save rentalHouses");
-            rentalHouseRepository.saveAllAndFlush(rentalHouses);
+            if (!rentalHouses.isEmpty()) {
+                try {
+                    rentalHouseRepository.saveAllAndFlush(rentalHouses);
+                    log.info("주택 정보 {} 건 저장 완료", rentalHouses.size());
+                } catch (Exception e) {
+                    log.error("주택 정보 저장 중 오류 발생: {} 건", rentalHouses.size(), e);
+                    throw e; // Spring Batch가 처리할 수 있도록 예외를 다시 던짐
+                }
+            }
         }
     }
 }

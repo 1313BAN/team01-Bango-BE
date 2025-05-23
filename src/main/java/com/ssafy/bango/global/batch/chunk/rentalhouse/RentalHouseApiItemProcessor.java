@@ -17,21 +17,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RentalHouseApiItemProcessor implements ItemProcessor<List<RentalHouseApiResponse>, List<RentalHouse>> {
     private final KakaoGeocodingService geocodingService;
-    private Map<String, RentalHouse> houseMap = new HashMap<>();
 
     @Override
     public List<RentalHouse> process(List<RentalHouseApiResponse> apiResponseList) {
+        Map<String, RentalHouse> houseMap = new HashMap<>();
         log.info(">>> processing {} items", apiResponseList.size());
         long start = System.currentTimeMillis();
 
-        makeRentalHouseAndRentalHouseStyle(apiResponseList);
+        makeRentalHouseAndRentalHouseStyle(apiResponseList, houseMap);
 
         long end = System.currentTimeMillis();
         log.warn(">>>>> Mapper Duration: {} ms", end - start);
         return new ArrayList<>(houseMap.values());
     }
 
-    private void makeRentalHouseAndRentalHouseStyle(List<RentalHouseApiResponse> apiResponseList) {
+    private void makeRentalHouseAndRentalHouseStyle(List<RentalHouseApiResponse> apiResponseList, Map<String, RentalHouse> houseMap) {
         for (RentalHouseApiResponse dto : apiResponseList) {
             String pnu = dto.getPnu();
 

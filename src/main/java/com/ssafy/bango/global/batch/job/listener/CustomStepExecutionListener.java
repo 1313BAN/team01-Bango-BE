@@ -18,6 +18,6 @@ public class CustomStepExecutionListener extends StepExecutionListenerSupport {
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         log.info("Step completed: {} with status: {}", stepExecution.getStepName(), stepExecution.getStatus());
-        return ExitStatus.COMPLETED;
+        return stepExecution.getExitStatus();
     }
 }

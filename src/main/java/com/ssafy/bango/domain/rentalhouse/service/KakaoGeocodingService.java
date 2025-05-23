@@ -41,27 +41,16 @@ public class KakaoGeocodingService {
     @Cacheable(
             value = "geoCache",
             key = "#pnu",
-            unless = "#result == null"
+            unless = "#result.isEmpty()"
     )
     public Optional<GeoPointResponse> getGeoFromAddress(String pnu, String address) {
-//        log.info(">>> [GEOCODE] cache miss for pnu={}, calling Kakao API", pnu);
+        log.info(">>> [GEOCODE] cache miss for pnu={}, calling Kakao API", pnu);
         String url = buildUrl(address);
         HttpEntity<?> entity = buildHttpEntity();
 
         try {
             ResponseEntity<String> resp = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-            JsonNode docs = new ObjectMapper()
-                    .readTree(resp.getBody())
-                    .path("documents");
-            if (!docs.isArray() || docs.isEmpty()) {
-                return Optional.empty();
-            }
-            JsonNode loc = docs.get(0);
-            GeoPointResponse geo = new GeoPointResponse(
-                    loc.get("y").asText(),
-                    loc.get("x").asText()
-            );
-            return Optional.of(geo);
+            return parseCoordinates(resp.getBody());
         } catch (Exception ex) {
             log.error("Error fetching geo for pnu={}, address={}", pnu, address, ex);
             return Optional.empty();
@@ -79,7 +68,7 @@ public class KakaoGeocodingService {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             long end = System.currentTimeMillis();
 
-            System.out.println(">>>end getGeoFromAddress: " + (end - start) + " ms");
+            System.out.println(">>> end getGeoFromAddress: " + (end - start) + " ms");
             return parseCoordinates(response.getBody());
         } catch (Exception e) {
             log.error("Error occurred while fetching geocode for address: {}", address, e);

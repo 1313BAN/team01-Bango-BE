@@ -20,4 +20,6 @@ public interface RentalHouseRepository extends JpaRepository<RentalHouse, Intege
     Optional<RentalHouse> findByHouseIdWithStyles(int houseId);
 
     Optional<RentalHouse> findByHouseId(int houseId);
+
+    List<RentalHouse> findByLatitudeIsNotNullAndLongitudeIsNotNull();
 }

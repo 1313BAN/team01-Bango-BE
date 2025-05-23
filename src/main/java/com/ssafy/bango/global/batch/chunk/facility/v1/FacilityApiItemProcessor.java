@@ -32,19 +32,22 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
     private final String openApiServiceKey;
     private static final int RADIUS = 8000;
 
-    List<Facility> facilities = new ArrayList<>();
-
     @Override
     public List<Facility> process(RentalHouse rentalHouse) throws Exception {
+        List<Facility> facilities = new ArrayList<>();
         HttpEntity<?> entity = buildHttpEntity();
 
         for (FacilityType type : FacilityType.values()) {
-            ResponseEntity<String> response = fetchFacility(entity, rentalHouse, type);
+            try {
+                ResponseEntity<String> response = fetchFacility(entity, rentalHouse, type);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
-                FacilityApiResponse result = parseResponse(response.getBody());
-                Facility facility = makeFacility(result, rentalHouse, type);
-                if (facility != null) facilities.add(facility);
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    FacilityApiResponse result = parseResponse(response.getBody());
+                    Facility facility = makeFacility(result, rentalHouse, type);
+                    if (facility != null) facilities.add(facility);
+                }
+            } catch (Exception e) {
+                log.error("시설 정보 조회 중 오류 발생: type={}, rentalHouse={}", type.getDescription(), rentalHouse.getPnu(), e);
             }
         }
         return facilities;
@@ -60,8 +63,7 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
     private ResponseEntity<String> fetchFacility(HttpEntity<?> entity, RentalHouse rentalHouse, FacilityType type) throws URISyntaxException, MalformedURLException {
         URL url = buildUrl(type.getDescription(), rentalHouse.getLongitude(), rentalHouse.getLatitude());
         ResponseEntity<String> response = restTemplate.exchange(url.toURI(), HttpMethod.GET,entity, String.class);
-        log.info("type: " + type.getDescription());
-        log.info("response body: " + response.getBody());
+        log.debug("API 호출 성공: type={}, status={}", type.getDescription(), response.getStatusCode());
         return response;
     }
 

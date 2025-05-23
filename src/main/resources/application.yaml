@@ -111,3 +111,5 @@ open:
     rentalHouse:
       url: ${RENTAL_HOUSE_API_URL}
       key: ${RENTAL_HOUSE_API_KEY}
+      brtcCode: 11        # 서울특별시
+      numOfRows: 5000
