@@ -1,5 +1,6 @@
 package com.ssafy.bango.domain.rentalhouse.repository;
 
+import com.ssafy.bango.domain.rentalhouse.dto.request.LatLongBoundsRequest;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,11 @@ public interface RentalHouseRepository extends JpaRepository<RentalHouse, Intege
     Optional<RentalHouse> findByHouseId(int houseId);
 
     List<RentalHouse> findByLatitudeIsNotNullAndLongitudeIsNotNull();
+
+    @Query("""
+        SELECT r FROM RentalHouse r
+        WHERE r.latitude BETWEEN :minLatitude AND :maxLatitude
+        AND r.longitude BETWEEN :minLongitude AND :maxLongitude
+    """)
+    List<RentalHouse> findByLatitudeAndLongitude(double minLatitude, double maxLatitude, double minLongitude, double maxLongitude);
 }
