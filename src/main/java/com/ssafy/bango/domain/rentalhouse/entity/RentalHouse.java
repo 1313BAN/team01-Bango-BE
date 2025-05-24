@@ -61,10 +61,10 @@ public class RentalHouse extends BaseTimeEntity {
   private String parkingCount;
 
   @Column(length = 30)
-  private String latitude;
+  private double latitude;
 
   @Column(length = 30)
-  private String longitude;
+  private double longitude;
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RentalHouseStyle> styles;
@@ -86,8 +86,8 @@ public class RentalHouse extends BaseTimeEntity {
         .houseType(dto.getHouseTyNm())
         .hasElevator(dto.getElvtrInstlAtNm())
         .parkingCount(dto.getParkngCo() != null ? dto.getParkngCo().toString() : null)
-        .latitude(geo != null ? geo.latitude() : null)
-        .longitude(geo != null ? geo.longitude() : null)
+        .latitude(geo != null ? geo.latitude() : 0)
+        .longitude(geo != null ? geo.longitude() : 0)
         .build();
 
     house.styles = new ArrayList<>();
