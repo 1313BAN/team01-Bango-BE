@@ -8,7 +8,7 @@ import lombok.Getter;
 public class DongSummaryResponse {
     private String dongCode;
     private String dongName;
-    private Integer rentalCount;
+    private Long rentalCount;
     private Double avgLatitude;
     private Double avgLongitude;
 }

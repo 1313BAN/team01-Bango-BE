@@ -25,7 +25,7 @@ public class RentalHouseSummary extends BaseTimeEntity {
     private String gugunName;
     private String dongCode;
     private String dongName;
-    private Integer rentalCount;
+    private Long rentalCount;
     private Double avgLatitude;
     private Double avgLongitude;
 
@@ -35,7 +35,7 @@ public class RentalHouseSummary extends BaseTimeEntity {
                 .gugunName(gugunName)
                 .dongCode(dongCode)
                 .dongName(dongName)
-                .rentalCount(rentalCount.intValue())
+                .rentalCount(rentalCount)
                 .avgLatitude(avgLatitude)
                 .avgLongitude(avgLongitude)
                 .build();
