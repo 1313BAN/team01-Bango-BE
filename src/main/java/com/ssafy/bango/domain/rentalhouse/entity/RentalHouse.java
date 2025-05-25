@@ -22,6 +22,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "rental_house", indexes = {
+    @Index(name = "idx_lat_long", columnList = "latitude, longitude")
+})
 public class RentalHouse extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
