@@ -15,11 +15,11 @@ public interface RentalHouseSummaryRepository extends JpaRepository<RentalHouseS
 
     @Query("""
         SELECT new com.ssafy.bango.domain.rentalhouse.dto.request.RentalHouseSummaryRequest(
-            SUBSTR(r.pnu, 1, 5), r.gugunName, SUBSTR(r.pnu, 1, 10), d.dongName, COUNT(r), AVG(r.latitude), AVG(r.longitude)
+            r.pnuGugunCode, r.gugunName, r.pnuDongCode, d.dongName, COUNT(r), AVG(r.latitude), AVG(r.longitude)
         )
         FROM RentalHouse r
-        JOIN DongCode d ON SUBSTRING(r.pnu, 1, 10) = d.dongCode
-        GROUP BY SUBSTRING(r.pnu, 1, 5), SUBSTRING(r.pnu, 1, 10), r.gugunName, d.dongName
+        JOIN DongCode d ON r.pnuDongCode = d.dongCode
+        GROUP BY r.pnuGugunCode, r.pnuDongCode, r.gugunName, d.dongName
     """)
     List<RentalHouseSummaryRequest> getRentalHouseSummary();
 
