@@ -1,4 +1,4 @@
-package com.ssafy.bango.global.batch.tasklet;
+package com.ssafy.bango.global.batch.tasklet.v1;
 
 import com.ssafy.bango.domain.rentalhouse.repository.FacilityRepository;
 import lombok.RequiredArgsConstructor;
