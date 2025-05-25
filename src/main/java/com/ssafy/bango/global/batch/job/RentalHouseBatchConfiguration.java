@@ -5,6 +5,7 @@ import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.entity.enums.RentalHouseEnums;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.domain.rentalhouse.service.KakaoGeocodingService;
+import com.ssafy.bango.domain.rentalhouse.service.RentalHouseSummaryService;
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemProcessor;
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemReader;
 import com.ssafy.bango.global.batch.chunk.rentalhouse.RentalHouseApiItemWriter;
@@ -21,6 +22,7 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,12 +44,14 @@ public class RentalHouseBatchConfiguration {
     private final RentalHouseDeleteDataTasklet rentalHouseDeleteDataTasklet;
     private final KakaoGeocodingService kakaoGeocodingService;
     private final RentalHouseRepository rentalHouseRepository;
+    private final RentalHouseSummaryService rentalHouseSummaryService;
 
     @Bean(name = "rentalHouseJob")
-    public Job rentalHouseJob(Step deleteRentalHouseStep, Step openRentalHouseApiStep) {
+    public Job rentalHouseJob(Step deleteRentalHouseStep, Step openRentalHouseApiStep, Step summaryStep) {
         return new JobBuilder("rentalHouseJob", jobRepository)
                 .start(deleteRentalHouseStep)
                 .next(openRentalHouseApiStep)
+                .next(summaryStep)
                 .build();
     }
 
@@ -56,6 +60,16 @@ public class RentalHouseBatchConfiguration {
         return new StepBuilder("deleteRentalHouseStep", jobRepository)
                 .tasklet(rentalHouseDeleteDataTasklet, transactionManager)
                 .build();
+    }
+
+    @Bean(name = "summaryStep")
+    public Step summaryStep() {
+        return new StepBuilder("summaryStep", jobRepository)
+            .tasklet((contribution, chunkContext) -> {
+                rentalHouseSummaryService.makeAndSaveSummary();
+                return RepeatStatus.FINISHED;
+            }, transactionManager)
+            .build();
     }
 
     @Bean(name = "openRentalHouseApiStep")

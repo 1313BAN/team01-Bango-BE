@@ -1,6 +1,5 @@
 package com.ssafy.bango.domain.rentalhouse.repository;
 
-import com.ssafy.bango.domain.rentalhouse.dto.request.LatLongBoundsRequest;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
