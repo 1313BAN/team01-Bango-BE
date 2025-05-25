@@ -1,6 +1,7 @@
 package com.ssafy.bango.global.batch.tasklet;
 
 import com.ssafy.bango.domain.rentalhouse.service.RentalHouseSummaryService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class RentalHouseSummaryGenerateTasklet implements Tasklet {
     private final RentalHouseSummaryService rentalHouseSummaryService;
 
