@@ -19,7 +19,7 @@ public class OpenApiScheduler {
 
     private final JobLauncher jobLauncher;
 
-    @Scheduled(cron = "0 0 4 * * ?")
+    @Scheduled(cron = "0 0 4 1 * ?")
     public void runRentalHouseBatch() {
         try {
             JobParameters params = new JobParametersBuilder()
