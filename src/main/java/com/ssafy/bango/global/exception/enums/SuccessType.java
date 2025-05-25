@@ -29,6 +29,9 @@ public enum SuccessType {
     GET_RENTALHOUSES_SUCCESS(HttpStatus.OK, "공공임대주택 리스트 조회에 성공했습니다."),
     GET_RENTALHOUSES_BY_DONGCODE_SUCCESS(HttpStatus.OK, "동별 공공임대주택 리스트 조회에 성공했습니다."),
     GET_RENTALHOUSE_SUCCESS(HttpStatus.OK, "공공임대주택 조회에 성공했습니다."),
+    GET_RENTALHOUSES_WITHIN_SUCCESS(HttpStatus.OK, "지도 내 공공임대주택 리스트 조회에 성공했습니다."),
+    GET_GUGUN_SUMMARY_SUCCESS(HttpStatus.OK, "구군별 공공임대주택 summary 조회에 성공했습니다."),
+    GET_DONG_SUMMARY_SUCCESS(HttpStatus.OK, "동별 공공임대주택 summary 조회에 성공했습니다."),
 
     // 공공임대주택 공고 관련
     GET_RENTALNOTICE_LIST_SUCCESS(HttpStatus.OK, "공공임대주택 공고 리스트 조회에 성공했습니다."),

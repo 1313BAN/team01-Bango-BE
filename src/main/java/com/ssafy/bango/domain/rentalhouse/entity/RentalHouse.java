@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "rental_house", indexes = {
+    @Index(name = "idx_lat_long", columnList = "latitude, longitude")
+})
 public class RentalHouse extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,10 +65,18 @@ public class RentalHouse extends BaseTimeEntity {
   private String parkingCount;
 
   @Column(length = 30)
-  private String latitude;
+  private double latitude;
 
   @Column(length = 30)
-  private String longitude;
+  private double longitude;
+
+  // pnu 기반 파생 컬럼
+  @Formula("substring(pnu, 1, 5)")
+  private String pnuGugunCode;
+
+  // pnu 기반 dong code
+  @Formula("substring(pnu, 1, 10)")
+  private String pnuDongCode;
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RentalHouseStyle> styles;
@@ -86,8 +98,8 @@ public class RentalHouse extends BaseTimeEntity {
         .houseType(dto.getHouseTyNm())
         .hasElevator(dto.getElvtrInstlAtNm())
         .parkingCount(dto.getParkngCo() != null ? dto.getParkngCo().toString() : null)
-        .latitude(geo != null ? geo.latitude() : null)
-        .longitude(geo != null ? geo.longitude() : null)
+        .latitude(geo != null ? geo.latitude() : 0)
+        .longitude(geo != null ? geo.longitude() : 0)
         .build();
 
     house.styles = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.ssafy.bango.domain.rentalhouse.service;
 
 import static com.ssafy.bango.global.exception.enums.ErrorType.HOUSE_ID_NOT_FOUND;
 
+import com.ssafy.bango.domain.rentalhouse.dto.request.LatLongBoundsRequest;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
@@ -44,5 +45,9 @@ public class RentalHouseService {
     public RentalHouse getRentalHouseByHouseId(int houseId) {
         return rentalHouseRepository.findByHouseId(houseId)
             .orElseThrow(() -> new CustomException(HOUSE_ID_NOT_FOUND));
+    }
+
+    public List<RentalHouse> getRentalHousesByLatLongBounds(LatLongBoundsRequest request) {
+        return rentalHouseRepository.findByLatitudeAndLongitude(request.getMinLatitude(), request.getMaxLatitude(), request.getMinLongitude(), request.getMaxLongitude());
     }
 }

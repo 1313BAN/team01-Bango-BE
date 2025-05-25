@@ -1,6 +1,7 @@
 package com.ssafy.bango.domain.rentalhouse.controller;
 
 import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
+import com.ssafy.bango.domain.rentalhouse.dto.request.LatLongBoundsRequest;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.global.common.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,4 +27,9 @@ public interface RentalHouseApi {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "특정 주택 조회 완료")
     })
     ApiResponse<RentalHouse> getRentalHouse(@PathVariable int houseId);
+
+    @Operation(summary = "지도 내 임대 주택 조회", description = "위도와 경도를 바탕으로 지도 내에 있는 임대 주택을 조회하는 API 입니다.", responses = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "지도 내 임대 주택 조회 완료")
+    })
+    ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(@Valid @ModelAttribute LatLongBoundsRequest request);
 }

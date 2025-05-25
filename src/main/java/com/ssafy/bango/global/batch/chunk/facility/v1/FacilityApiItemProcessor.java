@@ -67,7 +67,7 @@ public class FacilityApiItemProcessor implements ItemProcessor<RentalHouse, List
         return response;
     }
 
-    private URL buildUrl(String query, String x, String y) throws MalformedURLException {
+    private URL buildUrl(String query, double x, double y) throws MalformedURLException {
         String url = UriComponentsBuilder.fromUriString(openApiUrl)
             .queryParam("query", query)
             .queryParam("x", x)

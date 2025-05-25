@@ -97,8 +97,9 @@ public class KakaoGeocodingService {
         if (!documents.isArray() || documents.isEmpty()) return Optional.empty();
 
         JsonNode location = documents.path(0);
-        String lat = location.get("y").asText();
-        String lng = location.get("x").asText();
+        double lat = location.get("y").asDouble();
+        double lng = location.get("x").asDouble();
+        log.info(">>> [GEOCODE] parsed coordinates: lat={}, lng={}", lat, lng);
         return Optional.of(new GeoPointResponse(lat, lng));
     }
 }

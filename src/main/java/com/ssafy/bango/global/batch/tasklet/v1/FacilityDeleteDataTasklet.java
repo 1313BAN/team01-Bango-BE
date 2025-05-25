@@ -1,6 +1,7 @@
-package com.ssafy.bango.global.batch.tasklet;
+package com.ssafy.bango.global.batch.tasklet.v1;
 
 import com.ssafy.bango.domain.rentalhouse.repository.FacilityRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class FacilityDeleteDataTasklet implements Tasklet {
     private final FacilityRepository facilityRepository;
 

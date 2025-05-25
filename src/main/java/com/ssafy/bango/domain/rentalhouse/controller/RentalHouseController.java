@@ -2,8 +2,10 @@ package com.ssafy.bango.domain.rentalhouse.controller;
 
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSES_BY_DONGCODE_SUCCESS;
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSES_SUCCESS;
+import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSES_WITHIN_SUCCESS;
 import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALHOUSE_SUCCESS;
 
+import com.ssafy.bango.domain.rentalhouse.dto.request.LatLongBoundsRequest;
 import com.ssafy.bango.domain.rentalhouse.entity.RentalHouse;
 import com.ssafy.bango.domain.rentalhouse.dto.request.DongCodeRequest;
 import com.ssafy.bango.domain.rentalhouse.service.RentalHouseService;
@@ -37,5 +39,10 @@ public class RentalHouseController implements RentalHouseApi {
     @GetMapping("/{houseId}")
     public ApiResponse<RentalHouse> getRentalHouse(@PathVariable int houseId) {
         return ApiResponse.success(GET_RENTALHOUSE_SUCCESS, rentalHouseService.getRentalHouseWithStyles(houseId));
+    }
+
+    @GetMapping("/within-bounds")
+    public ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(@Valid @ModelAttribute LatLongBoundsRequest request) {
+        return ApiResponse.success(GET_RENTALHOUSES_WITHIN_SUCCESS, rentalHouseService.getRentalHousesByLatLongBounds(request));
     }
 }
