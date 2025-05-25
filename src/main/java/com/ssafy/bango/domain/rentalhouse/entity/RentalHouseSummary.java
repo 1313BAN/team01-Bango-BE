@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +27,7 @@ public class RentalHouseSummary extends BaseTimeEntity {
     private Double avgLatitude;
     private Double avgLongitude;
 
-    public static RentalHouseSummary from(String gugunCode, String gugunName, String dongCode, String dongName, Long rentalCount, double avgLatitude, double avgLongitude) {
+    public static RentalHouseSummary from(String gugunCode, String gugunName, String dongCode, String dongName, Long rentalCount, Double avgLatitude, Double avgLongitude) {
         return RentalHouseSummary.builder()
                 .gugunCode(gugunCode)
                 .gugunName(gugunName)
