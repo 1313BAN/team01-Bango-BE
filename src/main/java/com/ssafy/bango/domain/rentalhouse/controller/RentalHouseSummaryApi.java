@@ -15,7 +15,7 @@ public interface RentalHouseSummaryApi {
     ApiResponse<List<GugunSummaryResponse>> getGugunSummary();
 
     @Operation(summary = "동별 임대 주택 summary 조회", description = "동별 임대 주택 개수 및 위경도 조회하는 API 입니다.", responses = {
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "구군별 임대 주택 summary 조회 완료")
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "동별 임대 주택 summary 조회 완료")
     })
     ApiResponse<List<DongSummaryResponse>> getDongSummary();
 }
