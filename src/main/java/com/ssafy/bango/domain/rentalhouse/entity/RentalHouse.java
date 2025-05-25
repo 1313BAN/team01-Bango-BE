@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -70,11 +71,11 @@ public class RentalHouse extends BaseTimeEntity {
   private double longitude;
 
   // pnu 기반 파생 컬럼
-  @Column(name = "pnu_gugun_code", insertable = false, updatable = false)
+  @Formula("substring(pnu, 1, 5)")
   private String pnuGugunCode;
 
   // pnu 기반 dong code
-  @Column(name = "pnu_dong_code", insertable = false, updatable = false)
+  @Formula("substring(pnu, 1, 10)")
   private String pnuDongCode;
 
   @OneToMany(mappedBy = "rentalHouse", cascade = CascadeType.ALL, orphanRemoval = true)
