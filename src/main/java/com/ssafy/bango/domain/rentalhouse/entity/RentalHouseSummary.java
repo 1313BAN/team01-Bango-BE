@@ -17,9 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "rental_house_summary", indexes = {
-    @Index(name = "idx_dong_code", columnList = "dongCode")
-})
 public class RentalHouseSummary extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
