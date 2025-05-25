@@ -31,5 +31,5 @@ public interface RentalHouseApi {
     @Operation(summary = "지도 내 임대 주택 조회", description = "위도와 경도를 바탕으로 지도 내에 있는 임대 주택을 조회하는 API 입니다.", responses = {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "지도 내 임대 주택 조회 완료")
     })
-    ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(@ModelAttribute LatLongBoundsRequest request);
+    ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(@Valid @ModelAttribute LatLongBoundsRequest request);
 }

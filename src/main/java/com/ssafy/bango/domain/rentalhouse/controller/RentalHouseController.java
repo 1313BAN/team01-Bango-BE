@@ -42,8 +42,7 @@ public class RentalHouseController implements RentalHouseApi {
     }
 
     @GetMapping("/within-bounds")
-    public ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(
-        @ModelAttribute LatLongBoundsRequest request) {
+    public ApiResponse<List<RentalHouse>> getRentalHouseByLatLongBounds(@Valid @ModelAttribute LatLongBoundsRequest request) {
         return ApiResponse.success(GET_RENTALHOUSES_WITHIN_SUCCESS, rentalHouseService.getRentalHousesByLatLongBounds(request));
     }
 }
