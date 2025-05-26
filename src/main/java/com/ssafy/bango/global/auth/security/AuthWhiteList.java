@@ -17,6 +17,7 @@ public class AuthWhiteList {
     public static final List<String> AUTH_WHITELIST_WILDCARD = Arrays.asList(
         "/api/v1/rental/**",
         "/api/v1/rental/api/**",
+        "/api/v1/notice/**",
         "/api/v1/ai/**",
         "/swagger-ui/**",
         "/v3/api-docs/**",
