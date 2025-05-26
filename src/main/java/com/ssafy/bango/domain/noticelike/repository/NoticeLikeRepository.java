@@ -21,4 +21,6 @@ public interface NoticeLikeRepository extends JpaRepository<NoticeLike, Integer>
 
     @Query("SELECT nl.rentalNotice.noticeId FROM NoticeLike nl WHERE nl.member.memberId = :memberId")
     List<Integer> findLikedNoticeIdsByMemberId(@Param("memberId") Long memberId);
+
+    boolean existsByMember_MemberIdAndRentalNotice_NoticeId(long memberId, int noticeId);
 }
