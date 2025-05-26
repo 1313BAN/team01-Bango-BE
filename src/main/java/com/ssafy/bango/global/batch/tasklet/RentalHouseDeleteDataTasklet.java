@@ -3,7 +3,7 @@ package com.ssafy.bango.global.batch.tasklet;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseRepository;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseStyleRepository;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseSummaryRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
