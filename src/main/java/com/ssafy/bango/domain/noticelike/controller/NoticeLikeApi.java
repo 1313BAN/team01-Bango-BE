@@ -21,8 +21,8 @@ public interface NoticeLikeApi {
     })
     ResponseEntity<ApiResponse<?>> deleteLikedNotice(Integer noticeId, Principal principal);
 
-    @Operation(summary = "공고 찜한 목록 조회", description = "공고 찜한 목록 조회 API 입니다.", responses = {
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 찜한 목록 조회 완료")
+    @Operation(summary = "찜한 공고 조회", description = "로그인 한 경우(/like) 찜한 공고 목록 조회 API 입니다.", responses = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "찜한 공고 목록 조회 완료")
     })
     ResponseEntity<ApiResponse<LikedNoticeResponse>> getLikedNoticeList(Principal principal);
 }
