@@ -7,9 +7,11 @@ import com.ssafy.bango.domain.rentalhouse.entity.RentalHouseSummary;
 import com.ssafy.bango.domain.rentalhouse.repository.RentalHouseSummaryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -30,7 +32,9 @@ public class RentalHouseSummaryService {
                 dto.getAvgLongitude()
             ))
             .toList();
+        log.info("저장할 summary 개수: {}", summaries.size());
         rentalHouseSummaryRepository.saveAll(summaries);
+        rentalHouseSummaryRepository.flush(); // flush 명시적으로 호출해서 DB 반영 확인
     }
 
     public List<GugunSummaryResponse> getGugunSummary() {
