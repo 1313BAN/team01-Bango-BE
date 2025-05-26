@@ -51,8 +51,9 @@ public class RentalNoticeService {
                 .map(notice -> NoticeWithLiked.of(notice, noticeLikeSet.contains(notice.getNoticeId())))
                 .toList();
 
-
         return NoticeListResponseWithLiked.of(
+                noticeList.getTotalPages(),
+                noticeList.getTotalElements(),
                 pageNo,
                 noticeList.getNumberOfElements(),
                 result
