@@ -7,6 +7,8 @@ import com.ssafy.bango.domain.rentalnotice.entity.RentalNotice;
 import com.ssafy.bango.domain.rentalnotice.feign.RentalNoticeApiService;
 import com.ssafy.bango.domain.rentalnotice.repository.RentalNoticeRepository;
 import com.ssafy.bango.global.auth.jwt.JwtProvider;
+import com.ssafy.bango.global.exception.CustomException;
+import com.ssafy.bango.global.exception.enums.ErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,12 +53,29 @@ public class RentalNoticeService {
                 .map(notice -> NoticeWithLiked.of(notice, noticeLikeSet.contains(notice.getNoticeId())))
                 .toList();
 
-
         return NoticeListResponseWithLiked.of(
+                noticeList.getTotalPages(),
+                noticeList.getTotalElements(),
                 pageNo,
                 noticeList.getNumberOfElements(),
                 result
         );
+    }
+
+    public NoticeWithLiked getNoticeWithLiked(int noticeId, Principal principal) {
+        RentalNotice notice = getRentalNotice(noticeId);
+
+        boolean isLiked = false;
+        if (!isNull(principal)) {
+            long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+            isLiked = noticeLikeRepository.existsByMember_MemberIdAndRentalNotice_NoticeId(memberId, noticeId);
+        }
+        return NoticeWithLiked.of(notice, isLiked);
+    }
+
+    private RentalNotice getRentalNotice(int noticeId) {
+        return rentalNoticeRepository.findById(noticeId)
+        .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_NOTICE_ERROR));
     }
 
     /**
