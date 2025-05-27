@@ -24,17 +24,16 @@ public class RentalNoticeController implements RentalNoticeApi {
     private final RentalNoticeService rentalNoticeService;
 
     @GetMapping("/dump")
-    public void getRentalListTest() {
+    public void loadDummyRentalNotices() {
         rentalNoticeService.dumpRentalNoticeTable();
     }
-
 
     /**
      * 로그인된 경우 "/like"
      * 로그인 되지 않은 경우 ""
      */
     @GetMapping(value = {"", "/like"})
-    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalListWithLike(
+    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalNoticesWithLike(
             @RequestParam(defaultValue = "1") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize,
             Principal principal
@@ -55,7 +54,7 @@ public class RentalNoticeController implements RentalNoticeApi {
     }
 
     @GetMapping("/{noticeId}")
-    public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalWithLike(@PathVariable int noticeId, Principal principal) {
+    public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalNoticeWithLike(@PathVariable int noticeId, Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_SUCCESS, rentalNoticeService.getNoticeWithLiked(noticeId, principal)));
     }
 }
