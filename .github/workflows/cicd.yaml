@@ -81,6 +81,8 @@ jobs:
             docker run -d --name bango-server \
               -e SPRING_PROFILES_ACTIVE=prod \
               -p 8080:8080 \
+              --memory="512m" \
+              --memory-swap="1638m" \
               --network bango-network \
               ${{ secrets.DOCKERHUB_USERNAME }}/bango-server:dev-${{ github.sha }}
             sudo docker system prune -af
