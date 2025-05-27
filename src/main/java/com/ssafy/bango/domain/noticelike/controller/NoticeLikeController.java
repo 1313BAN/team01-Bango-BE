@@ -15,11 +15,11 @@ import static com.ssafy.bango.global.exception.enums.SuccessType.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/notice")
+@RequestMapping("/api/v1/like/notice")
 public class NoticeLikeController implements NoticeLikeApi {
     private final NoticeLikeService noticeLikeService;
 
-    @PostMapping("/{noticeId}/like")
+    @PostMapping("/{noticeId}")
     public ResponseEntity<ApiResponse<NoticeLike>> addLikedNotice(@PathVariable Integer noticeId, Principal principal) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success(
@@ -28,7 +28,7 @@ public class NoticeLikeController implements NoticeLikeApi {
                 ));
     }
 
-    @DeleteMapping("/{noticeId}/like")
+    @DeleteMapping("/{noticeId}")
     public ResponseEntity<ApiResponse<?>> deleteLikedNotice(@PathVariable Integer noticeId, Principal principal) {
 
         noticeLikeService.deleteLikedNotice(noticeId, principal);
