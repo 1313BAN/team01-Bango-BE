@@ -6,7 +6,7 @@ spring:
     default: local
 
   datasource:
-    url: jdbc:mysql://${BANGO_DB_URL}?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://${BANGO_DB_URL}:${BANGO_DB_PORT}/${BANGO_DB_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
     username: ${BANGO_DB_USERNAME}
     password: ${BANGO_DB_PASSWORD}
 
@@ -118,3 +118,18 @@ open:
     facility:
       url: ${FACILITY_API_URL}
       key: ${FACILITY_API_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+
+#logging:
+#  level:
+#    org.springframework: debug
