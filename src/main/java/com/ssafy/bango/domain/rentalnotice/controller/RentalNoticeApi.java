@@ -22,6 +22,11 @@ public interface RentalNoticeApi {
     })
     ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalListWithLike(int pageNo, int pageSize, Principal principal);
 
+    @Operation(summary = "공고 검색 조회", description = "공고 목록을 검색하는 API 입니다.", responses = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 목록 검색 완료")
+    })
+    ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> searchRentalNotices(int pageNo, int pageSize, String status, String supplyType, Principal principal);
+
     @Operation(summary = "공고 상세 조회", description = "로그인 되지 않은 경우(/), 로그인 된 경우(/like) 공고 상세 조회하는 API 입니다.", responses = {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 상세 조회 완료")
     })

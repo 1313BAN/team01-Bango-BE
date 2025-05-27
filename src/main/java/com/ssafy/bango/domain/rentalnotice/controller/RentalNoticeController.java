@@ -45,6 +45,18 @@ public class RentalNoticeController implements RentalNoticeApi {
         ));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> searchRentalNotices(
+        @RequestParam(defaultValue = "1") int pageNo,
+        @RequestParam(defaultValue = "10") int pageSize,
+        @RequestParam(required = false) String status,
+        @RequestParam(required = false) String supplyType,
+        Principal principal
+    ) {
+        NoticeListResponseWithLiked response = rentalNoticeService.searchNoticeListWithLiked(pageNo, pageSize, status, supplyType, principal);
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, response));
+    }
+
     /**
      * 로그인된 경우 "/like"
      * 로그인 되지 않은 경우 ""
