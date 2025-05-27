@@ -23,7 +23,7 @@ import static com.ssafy.bango.global.exception.enums.SuccessType.GET_RENTALNOTIC
 public class RentalNoticeController implements RentalNoticeApi {
     private final RentalNoticeService rentalNoticeService;
 
-    @GetMapping("/dump")
+    @GetMapping("/p/dump")
     public void loadDummyRentalNotices() {
         rentalNoticeService.dumpRentalNoticeTable();
     }
@@ -41,7 +41,7 @@ public class RentalNoticeController implements RentalNoticeApi {
         return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/p/search")
     public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> searchRentalNotices(
         @RequestParam(defaultValue = "1") int pageNo,
         @RequestParam(defaultValue = "10") int pageSize,
@@ -53,7 +53,7 @@ public class RentalNoticeController implements RentalNoticeApi {
         return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, response));
     }
 
-    @GetMapping("/{noticeId}")
+    @GetMapping("/p/{noticeId}")
     public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalNoticeWithLike(@PathVariable int noticeId, Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_SUCCESS, rentalNoticeService.getNoticeWithLiked(noticeId, principal)));
     }
