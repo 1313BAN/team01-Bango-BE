@@ -27,6 +27,9 @@ public class RentalNoticeSpecifications {
     }
 
     public static Specification<RentalNotice> bySupplyType(String supplyType) {
-        return (root, query, cb) -> cb.equal(root.get("supplyType"), supplyType);
+        return (root, query, cb) -> {
+            if (supplyType == null || supplyType.trim().isEmpty()) return null; // 필터링 안 함
+            return cb.equal(root.get("supplyType"), supplyType.trim());
+        };
     }
 }
