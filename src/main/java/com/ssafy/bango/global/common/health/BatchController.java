@@ -14,7 +14,7 @@ import org.springframework.batch.core.JobParametersBuilder;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Profile("local")
+//@Profile("local")
 public class BatchController {
     @Qualifier("rentalHouseJob")
     private final Job rentalHouseJob;
