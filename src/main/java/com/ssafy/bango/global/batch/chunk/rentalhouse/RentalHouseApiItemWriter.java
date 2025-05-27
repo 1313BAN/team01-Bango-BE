@@ -17,6 +17,7 @@ public class RentalHouseApiItemWriter implements ItemWriter<List<RentalHouse>> {
     @Override
     public void write(Chunk<? extends List<RentalHouse>> chunk) {
         log.info(">>> write called");
+        long start = System.currentTimeMillis();
 
         for (List<RentalHouse> rentalHouses : chunk) {
             if (!rentalHouses.isEmpty()) {
@@ -29,5 +30,7 @@ public class RentalHouseApiItemWriter implements ItemWriter<List<RentalHouse>> {
                 }
             }
         }
+        long end = System.currentTimeMillis();
+        log.warn(">>>>> Write Duration: {} ms", end - start);
     }
 }

@@ -66,7 +66,7 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
         ResponseEntity<String> response = restTemplate.exchange(url.toURI(), HttpMethod.GET, entity, String.class);
         String responseBody = response.getBody();
         log.info("API StatusCode: {}", response.getStatusCode());
-        log.info("API Response: {}", responseBody != null && responseBody.length() > 500 ? responseBody.substring(0, 500) + "..." : responseBody);
+        log.info("API Response: {}", responseBody != null && responseBody.length() > 250 ? responseBody.substring(0, 250) + "..." : responseBody);
 
         if (response.getStatusCode().is2xxSuccessful()) {
             String jsonString = response.getBody();
@@ -105,7 +105,7 @@ public class RentalHouseApiItemReader implements ItemReader<List<RentalHouseApiR
         for (JsonNode node : itemListNode) {
             rentalHouseResponseList.add(objectMapper.treeToValue(node, RentalHouseApiResponse.class));
         }
-        log.info("Parsed {} rental house items", rentalHouseResponseList.size());
+//        log.info("Parsed {} rental house items", rentalHouseResponseList.size());
         return rentalHouseResponseList;
     }
 }
