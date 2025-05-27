@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
         @Index(name = "idx_dong_code", columnList = "dongCode")
     }
 )
-public class DongCode extends BaseTimeEntity {
+public class DongCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
