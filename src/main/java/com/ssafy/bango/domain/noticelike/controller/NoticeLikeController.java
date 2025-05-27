@@ -32,7 +32,7 @@ public class NoticeLikeController implements NoticeLikeApi {
     public ResponseEntity<ApiResponse<?>> deleteLikedNotice(@PathVariable Integer noticeId, Principal principal) {
 
         noticeLikeService.deleteLikedNotice(noticeId, principal);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(DELETE_LIKED_NOTICE_SUCCESS));
     }
 
