@@ -39,10 +39,7 @@ public class RentalNoticeController implements RentalNoticeApi {
             @RequestParam(defaultValue = "10") int pageSize,
             Principal principal
     ) {
-        return ResponseEntity.ok(ApiResponse.success(
-                GET_RENTALNOTICE_LIST_SUCCESS,
-                rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)
-        ));
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)));
     }
 
     @GetMapping("/search")
@@ -57,15 +54,8 @@ public class RentalNoticeController implements RentalNoticeApi {
         return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, response));
     }
 
-    /**
-     * 로그인된 경우 "/like"
-     * 로그인 되지 않은 경우 ""
-     */
-    @GetMapping(value = {"/{noticeId}", "/like/{noticeId}"})
+    @GetMapping("/{noticeId}")
     public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalWithLike(@PathVariable int noticeId, Principal principal) {
-        return ResponseEntity.ok(ApiResponse.success(
-            GET_RENTALNOTICE_SUCCESS,
-            rentalNoticeService.getNoticeWithLiked(noticeId, principal)
-        ));
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_SUCCESS, rentalNoticeService.getNoticeWithLiked(noticeId, principal)));
     }
 }
