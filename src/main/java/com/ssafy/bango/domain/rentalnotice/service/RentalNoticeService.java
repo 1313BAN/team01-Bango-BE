@@ -9,10 +9,12 @@ import com.ssafy.bango.domain.rentalnotice.repository.RentalNoticeRepository;
 import com.ssafy.bango.global.auth.jwt.JwtProvider;
 import com.ssafy.bango.global.exception.CustomException;
 import com.ssafy.bango.global.exception.enums.ErrorType;
+import com.ssafy.bango.global.util.RentalNoticeSpecifications;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.util.StringUtils;
 
 import static java.util.Objects.isNull;
 
@@ -29,37 +32,53 @@ import static java.util.Objects.isNull;
 public class RentalNoticeService {
     private final RentalNoticeRepository rentalNoticeRepository;
     private final NoticeLikeRepository noticeLikeRepository;
-
     private final RentalNoticeApiService rentalNoticeApiService;
-
 
     public NoticeListResponseWithLiked getNoticeListWithLiked(int pageNo, int pageSize, Principal principal) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-
-        // 와 이거 너무 맘에 안들어요
-
-
-        long memberId;
-        Set<Integer> noticeLikeSet;
-        if (!isNull(principal)) {
-            memberId = JwtProvider.getMemberIdFromPrincipal(principal);
-            noticeLikeSet = new HashSet<>(noticeLikeRepository.findLikedNoticeIdsByMemberId(memberId));
-        } else noticeLikeSet = new HashSet<>();
-
-
         Page<RentalNotice> noticeList = rentalNoticeRepository.findAll(pageable);
+        return convertToResponseWithLiked(noticeList, principal, pageNo);
+    }
 
-        List<NoticeWithLiked> result = noticeList.stream()
-                .map(notice -> NoticeWithLiked.of(notice, noticeLikeSet.contains(notice.getNoticeId())))
-                .toList();
+    public NoticeListResponseWithLiked searchNoticeListWithLiked(int pageNo, int pageSize, String status, String supplyType, Principal principal) {
+        Specification<RentalNotice> spec = buildSpecification(status, supplyType);
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        Page<RentalNotice> filteredList = rentalNoticeRepository.findAll(spec, pageable);
+        return convertToResponseWithLiked(filteredList, principal, pageNo);
+    }
+
+    private NoticeListResponseWithLiked convertToResponseWithLiked(Page<RentalNotice> page, Principal principal, int pageNo) {
+        Set<Integer> likedIds = getLikedNoticeIds(principal);
+
+        List<NoticeWithLiked> notices = page.stream()
+            .map(notice -> NoticeWithLiked.of(notice, likedIds.contains(notice.getNoticeId())))
+            .toList();
 
         return NoticeListResponseWithLiked.of(
-                noticeList.getTotalPages(),
-                noticeList.getTotalElements(),
-                pageNo,
-                noticeList.getNumberOfElements(),
-                result
+            page.getTotalPages(),
+            page.getTotalElements(),
+            pageNo,
+            page.getNumberOfElements(),
+            notices
         );
+    }
+
+    private Set<Integer> getLikedNoticeIds(Principal principal) {
+        if (principal == null) return Set.of();
+        long memberId = JwtProvider.getMemberIdFromPrincipal(principal);
+        return new HashSet<>(noticeLikeRepository.findLikedNoticeIdsByMemberId(memberId));
+    }
+
+    private Specification<RentalNotice> buildSpecification(String status, String supplyType) {
+        Specification<RentalNotice> spec = Specification.where(null);
+
+        if (StringUtils.hasText(status)) {
+            spec = spec.and(RentalNoticeSpecifications.byStatusPeriod(status));
+        }
+        if (StringUtils.hasText(supplyType)) {
+            spec = spec.and(RentalNoticeSpecifications.bySupplyType(supplyType));
+        }
+        return spec;
     }
 
     public NoticeWithLiked getNoticeWithLiked(int noticeId, Principal principal) {

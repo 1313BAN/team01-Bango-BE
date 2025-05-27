@@ -15,15 +15,20 @@ public interface RentalNoticeApi {
     @Operation(summary = "dummy 임대 주택 공고 쌓기", description = "dummy 임대 주택 공고 데이터를 DB에 적재하는 API 입니다.", responses = {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "dummy 임대 주택 공고 쌓기 완료")
     })
-    void getRentalListTest();
+    void loadDummyRentalNotices();
 
     @Operation(summary = "공고 조회", description = "로그인 되지 않은 경우(/), 로그인 된 경우(/like) 공고 목록을 조회하는 API 입니다.", responses = {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 목록 조회 완료")
     })
-    ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalListWithLike(int pageNo, int pageSize, Principal principal);
+    ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalNoticesWithLike(int pageNo, int pageSize, Principal principal);
 
-    @Operation(summary = "공고 상세 조회", description = "로그인 되지 않은 경우(/), 로그인 된 경우(/like) 공고 상세 조회하는 API 입니다.", responses = {
+    @Operation(summary = "공고 검색 조회", description = "공고 목록을 검색하는 API 입니다.", responses = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 목록 검색 완료")
+    })
+    ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> searchRentalNotices(int pageNo, int pageSize, String status, String supplyType, Principal principal);
+
+    @Operation(summary = "공고 상세 조회", description = "공고 상세 조회하는 API 입니다.", responses = {
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "공고 상세 조회 완료")
     })
-    ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalWithLike(@PathVariable int noticeId, Principal principal);
+    ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalNoticeWithLike(@PathVariable int noticeId, Principal principal);
 }

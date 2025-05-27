@@ -24,36 +24,37 @@ public class RentalNoticeController implements RentalNoticeApi {
     private final RentalNoticeService rentalNoticeService;
 
     @GetMapping("/dump")
-    public void getRentalListTest() {
+    public void loadDummyRentalNotices() {
         rentalNoticeService.dumpRentalNoticeTable();
     }
-
 
     /**
      * 로그인된 경우 "/like"
      * 로그인 되지 않은 경우 ""
      */
     @GetMapping(value = {"", "/like"})
-    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalListWithLike(
+    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> getRentalNoticesWithLike(
             @RequestParam(defaultValue = "1") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize,
             Principal principal
     ) {
-        return ResponseEntity.ok(ApiResponse.success(
-                GET_RENTALNOTICE_LIST_SUCCESS,
-                rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)
-        ));
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, rentalNoticeService.getNoticeListWithLiked(pageNo, pageSize, principal)));
     }
 
-    /**
-     * 로그인된 경우 "/like"
-     * 로그인 되지 않은 경우 ""
-     */
-    @GetMapping(value = {"/{noticeId}", "/like/{noticeId}"})
-    public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalWithLike(@PathVariable int noticeId, Principal principal) {
-        return ResponseEntity.ok(ApiResponse.success(
-            GET_RENTALNOTICE_SUCCESS,
-            rentalNoticeService.getNoticeWithLiked(noticeId, principal)
-        ));
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<NoticeListResponseWithLiked>> searchRentalNotices(
+        @RequestParam(defaultValue = "1") int pageNo,
+        @RequestParam(defaultValue = "10") int pageSize,
+        @RequestParam(required = false) String status,
+        @RequestParam(required = false) String supplyType,
+        Principal principal
+    ) {
+        NoticeListResponseWithLiked response = rentalNoticeService.searchNoticeListWithLiked(pageNo, pageSize, status, supplyType, principal);
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_LIST_SUCCESS, response));
+    }
+
+    @GetMapping("/{noticeId}")
+    public ResponseEntity<ApiResponse<NoticeWithLiked>> getRentalNoticeWithLike(@PathVariable int noticeId, Principal principal) {
+        return ResponseEntity.ok(ApiResponse.success(GET_RENTALNOTICE_SUCCESS, rentalNoticeService.getNoticeWithLiked(noticeId, principal)));
     }
 }
